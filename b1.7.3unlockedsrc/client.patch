@@ -1,0 +1,2121 @@
+--- net/minecraft/src/RenderList.java
++++ net/minecraft/src/RenderList.java
+@@ -7,9 +7,9 @@
+ 	private int field_1242_a;
+ 	private int field_1241_b;
+ 	private int field_1240_c;
+-	private float field_1239_d;
+-	private float field_1238_e;
+-	private float field_1237_f;
++	private double field_1239_d;
++	private double field_1238_e;
++	private double field_1237_f;
+ 	private IntBuffer field_1236_g = GLAllocation.createDirectIntBuffer(65536);
+ 	private boolean field_1235_h = false;
+ 	private boolean field_1234_i = false;
+@@ -20,9 +20,9 @@
+ 		this.field_1242_a = var1;
+ 		this.field_1241_b = var2;
+ 		this.field_1240_c = var3;
+-		this.field_1239_d = (float)var4;
+-		this.field_1238_e = (float)var6;
+-		this.field_1237_f = (float)var8;
++		this.field_1239_d = (double)var4;
++		this.field_1238_e = (double)var6;
++		this.field_1237_f = (double)var8;
+ 	}
+ 
+ 	public boolean func_862_a(int var1, int var2, int var3) {
+@@ -46,7 +46,7 @@
+ 
+ 			if(this.field_1236_g.remaining() > 0) {
+ 				GL11.glPushMatrix();
+-				GL11.glTranslatef((float)this.field_1242_a - this.field_1239_d, (float)this.field_1241_b - this.field_1238_e, (float)this.field_1240_c - this.field_1237_f);
++				GL11.glTranslated((double)this.field_1242_a - this.field_1239_d, (double)this.field_1241_b - this.field_1238_e, (double)this.field_1240_c - this.field_1237_f);
+ 				GL11.glCallLists(this.field_1236_g);
+ 				GL11.glPopMatrix();
+ 			}
+--- net/minecraft/src/ModelRenderer.java
++++ net/minecraft/src/ModelRenderer.java
+@@ -93,13 +93,13 @@
+ 					if(this.rotationPointX == 0.0F && this.rotationPointY == 0.0F && this.rotationPointZ == 0.0F) {
+ 						GL11.glCallList(this.displayList);
+ 					} else {
+-						GL11.glTranslatef(this.rotationPointX * var1, this.rotationPointY * var1, this.rotationPointZ * var1);
++						GL11.glTranslated(this.rotationPointX * var1, this.rotationPointY * var1, this.rotationPointZ * var1);
+ 						GL11.glCallList(this.displayList);
+-						GL11.glTranslatef(-this.rotationPointX * var1, -this.rotationPointY * var1, -this.rotationPointZ * var1);
++						GL11.glTranslated(-this.rotationPointX * var1, -this.rotationPointY * var1, -this.rotationPointZ * var1);
+ 					}
+ 				} else {
+ 					GL11.glPushMatrix();
+-					GL11.glTranslatef(this.rotationPointX * var1, this.rotationPointY * var1, this.rotationPointZ * var1);
++					GL11.glTranslated(this.rotationPointX * var1, this.rotationPointY * var1, this.rotationPointZ * var1);
+ 					if(this.rotateAngleZ != 0.0F) {
+ 						GL11.glRotatef(this.rotateAngleZ * (180.0F / (float)Math.PI), 0.0F, 0.0F, 1.0F);
+ 					}
+@@ -128,7 +128,7 @@
+ 				}
+ 
+ 				GL11.glPushMatrix();
+-				GL11.glTranslatef(this.rotationPointX * var1, this.rotationPointY * var1, this.rotationPointZ * var1);
++				GL11.glTranslated(this.rotationPointX * var1, this.rotationPointY * var1, this.rotationPointZ * var1);
+ 				if(this.rotateAngleY != 0.0F) {
+ 					GL11.glRotatef(this.rotateAngleY * (180.0F / (float)Math.PI), 0.0F, 1.0F, 0.0F);
+ 				}
+@@ -156,10 +156,10 @@
+ 
+ 				if(this.rotateAngleX == 0.0F && this.rotateAngleY == 0.0F && this.rotateAngleZ == 0.0F) {
+ 					if(this.rotationPointX != 0.0F || this.rotationPointY != 0.0F || this.rotationPointZ != 0.0F) {
+-						GL11.glTranslatef(this.rotationPointX * var1, this.rotationPointY * var1, this.rotationPointZ * var1);
++						GL11.glTranslated(this.rotationPointX * var1, this.rotationPointY * var1, this.rotationPointZ * var1);
+ 					}
+ 				} else {
+-					GL11.glTranslatef(this.rotationPointX * var1, this.rotationPointY * var1, this.rotationPointZ * var1);
++					GL11.glTranslated(this.rotationPointX * var1, this.rotationPointY * var1, this.rotationPointZ * var1);
+ 					if(this.rotateAngleZ != 0.0F) {
+ 						GL11.glRotatef(this.rotateAngleZ * (180.0F / (float)Math.PI), 0.0F, 0.0F, 1.0F);
+ 					}
+--- net/minecraft/src/MapItemRenderer.java
++++ net/minecraft/src/MapItemRenderer.java
+@@ -76,10 +76,10 @@
+ 		while(var19.hasNext()) {
+ 			MapCoord var20 = (MapCoord)var19.next();
+ 			GL11.glPushMatrix();
+-			GL11.glTranslatef((float)var15 + (float)var20.field_28216_b / 2.0F + 64.0F, (float)var16 + (float)var20.field_28220_c / 2.0F + 64.0F, -0.02F);
++			GL11.glTranslated((float)var15 + (float)var20.field_28216_b / 2.0F + 64.0F, (float)var16 + (float)var20.field_28220_c / 2.0F + 64.0F, -0.02F);
+ 			GL11.glRotatef((float)(var20.field_28219_d * 360) / 16.0F, 0.0F, 0.0F, 1.0F);
+ 			GL11.glScalef(4.0F, 4.0F, 3.0F);
+-			GL11.glTranslatef(-(2.0F / 16.0F), 2.0F / 16.0F, 0.0F);
++			GL11.glTranslated(-(2.0F / 16.0F), 2.0F / 16.0F, 0.0F);
+ 			float var21 = (float)(var20.field_28217_a % 4 + 0) / 4.0F;
+ 			float var22 = (float)(var20.field_28217_a / 4 + 0) / 4.0F;
+ 			float var23 = (float)(var20.field_28217_a % 4 + 1) / 4.0F;
+@@ -94,7 +94,7 @@
+ 		}
+ 
+ 		GL11.glPushMatrix();
+-		GL11.glTranslatef(0.0F, 0.0F, -0.04F);
++		GL11.glTranslated(0.0F, 0.0F, -0.04F);
+ 		GL11.glScalef(1.0F, 1.0F, 1.0F);
+ 		this.field_28160_d.drawString(var3.field_28168_a, var15, var16, -16777216);
+ 		GL11.glPopMatrix();
+--- net/minecraft/src/RenderBlocks.java
++++ net/minecraft/src/RenderBlocks.java
+@@ -270,12 +270,12 @@
+ 		int var7 = (var5 & 12) >> 2;
+ 		this.renderStandardBlock(var1, var2, var3, var4);
+ 		Tessellator var8 = Tessellator.instance;
+-		float var9 = var1.getBlockBrightness(this.blockAccess, var2, var3, var4);
++		double var9 = var1.getBlockBrightness(this.blockAccess, var2, var3, var4);
+ 		if(Block.lightValue[var1.blockID] > 0) {
+-			var9 = (var9 + 1.0F) * 0.5F;
++			var9 = (var9 + 1.0D) * 0.5D;
+ 		}
+ 
+-		var8.setColorOpaque_F(var9, var9, var9);
++		var8.setColorOpaque_D(var9, var9, var9);
+ 		double var10 = -0.1875D;
+ 		double var12 = 0.0D;
+ 		double var14 = 0.0D;
+@@ -304,46 +304,46 @@
+ 		int var20 = var1.getBlockTextureFromSide(1);
+ 		int var21 = (var20 & 15) << 4;
+ 		int var22 = var20 & 240;
+-		double var23 = (double)((float)var21 / 256.0F);
+-		double var25 = (double)(((float)var21 + 15.99F) / 256.0F);
+-		double var27 = (double)((float)var22 / 256.0F);
+-		double var29 = (double)(((float)var22 + 15.99F) / 256.0F);
+-		float var31 = 2.0F / 16.0F;
+-		float var32 = (float)(var2 + 1);
+-		float var33 = (float)(var2 + 1);
+-		float var34 = (float)(var2 + 0);
+-		float var35 = (float)(var2 + 0);
+-		float var36 = (float)(var4 + 0);
+-		float var37 = (float)(var4 + 1);
+-		float var38 = (float)(var4 + 1);
+-		float var39 = (float)(var4 + 0);
+-		float var40 = (float)var3 + var31;
++		double var23 = (double)((double)var21 / 256.0D);
++		double var25 = (double)(((double)var21 + 15.99D) / 256.0D);
++		double var27 = (double)((double)var22 / 256.0D);
++		double var29 = (double)(((double)var22 + 15.99D) / 256.0D);
++		double var31 = 2.0D / 16.0D;
++		double var32 = (double)(var2 + 1);
++		double var33 = (double)(var2 + 1);
++		double var34 = (double)(var2 + 0);
++		double var35 = (double)(var2 + 0);
++		double var36 = (double)(var4 + 0);
++		double var37 = (double)(var4 + 1);
++		double var38 = (double)(var4 + 1);
++		double var39 = (double)(var4 + 0);
++		double var40 = (double)var3 + var31;
+ 		if(var6 == 2) {
+-			var33 = (float)(var2 + 0);
++			var33 = (double)(var2 + 0);
+ 			var32 = var33;
+-			var35 = (float)(var2 + 1);
++			var35 = (double)(var2 + 1);
+ 			var34 = var35;
+-			var39 = (float)(var4 + 1);
++			var39 = (double)(var4 + 1);
+ 			var36 = var39;
+-			var38 = (float)(var4 + 0);
++			var38 = (double)(var4 + 0);
+ 			var37 = var38;
+ 		} else if(var6 == 3) {
+-			var35 = (float)(var2 + 0);
++			var35 = (double)(var2 + 0);
+ 			var32 = var35;
+-			var34 = (float)(var2 + 1);
++			var34 = (double)(var2 + 1);
+ 			var33 = var34;
+-			var37 = (float)(var4 + 0);
++			var37 = (double)(var4 + 0);
+ 			var36 = var37;
+-			var39 = (float)(var4 + 1);
++			var39 = (double)(var4 + 1);
+ 			var38 = var39;
+ 		} else if(var6 == 1) {
+-			var35 = (float)(var2 + 1);
++			var35 = (double)(var2 + 1);
+ 			var32 = var35;
+-			var34 = (float)(var2 + 0);
++			var34 = (double)(var2 + 0);
+ 			var33 = var34;
+-			var37 = (float)(var4 + 1);
++			var37 = (double)(var4 + 1);
+ 			var36 = var37;
+-			var39 = (float)(var4 + 0);
++			var39 = (double)(var4 + 0);
+ 			var38 = var39;
+ 		}
+ 
+@@ -965,30 +965,30 @@
+ 			var7 = this.overrideBlockTexture;
+ 		}
+ 
+-		float var8 = var1.getBlockBrightness(this.blockAccess, var2, var3, var4);
+-		float var9 = (float)var6 / 15.0F;
+-		float var10 = var9 * 0.6F + 0.4F;
++		double var8 = var1.getBlockBrightness(this.blockAccess, var2, var3, var4);
++		double var9 = (double)var6 / 15.0D;
++		double var10 = var9 * 0.6D + 0.4D;
+ 		if(var6 == 0) {
+-			var10 = 0.3F;
+-		}
+-
+-		float var11 = var9 * var9 * 0.7F - 0.5F;
+-		float var12 = var9 * var9 * 0.6F - 0.7F;
+-		if(var11 < 0.0F) {
+-			var11 = 0.0F;
+-		}
+-
+-		if(var12 < 0.0F) {
+-			var12 = 0.0F;
+-		}
+-
+-		var5.setColorOpaque_F(var8 * var10, var8 * var11, var8 * var12);
++			var10 = 0.3D;
++		}
++
++		double var11 = var9 * var9 * 0.7D - 0.5D;
++		double var12 = var9 * var9 * 0.6D - 0.7D;
++		if(var11 < 0.0D) {
++			var11 = 0.0D;
++		}
++
++		if(var12 < 0.0D) {
++			var12 = 0.0D;
++		}
++
++		var5.setColorOpaque_D(var8 * var10, var8 * var11, var8 * var12);
+ 		int var13 = (var7 & 15) << 4;
+ 		int var14 = var7 & 240;
+-		double var15 = (double)((float)var13 / 256.0F);
+-		double var17 = (double)(((float)var13 + 15.99F) / 256.0F);
+-		double var19 = (double)((float)var14 / 256.0F);
+-		double var21 = (double)(((float)var14 + 15.99F) / 256.0F);
++		double var15 = (double)((double)var13 / 256.0D);
++		double var17 = (double)(((double)var13 + 15.99D) / 256.0D);
++		double var19 = (double)((double)var14 / 256.0D);
++		double var21 = (double)(((double)var14 + 15.99D) / 256.0D);
+ 		boolean var26 = BlockRedstoneWire.isPowerProviderOrWire(this.blockAccess, var2 - 1, var3, var4, 1) || !this.blockAccess.isBlockNormalCube(var2 - 1, var3, var4) && BlockRedstoneWire.isPowerProviderOrWire(this.blockAccess, var2 - 1, var3 - 1, var4, -1);
+ 		boolean var27 = BlockRedstoneWire.isPowerProviderOrWire(this.blockAccess, var2 + 1, var3, var4, 3) || !this.blockAccess.isBlockNormalCube(var2 + 1, var3, var4) && BlockRedstoneWire.isPowerProviderOrWire(this.blockAccess, var2 + 1, var3 - 1, var4, -1);
+ 		boolean var28 = BlockRedstoneWire.isPowerProviderOrWire(this.blockAccess, var2, var3, var4 - 1, 2) || !this.blockAccess.isBlockNormalCube(var2, var3, var4 - 1) && BlockRedstoneWire.isPowerProviderOrWire(this.blockAccess, var2, var3 - 1, var4 - 1, -1);
+@@ -1011,10 +1011,10 @@
+ 			}
+ 		}
+ 
+-		float var31 = (float)(var2 + 0);
+-		float var32 = (float)(var2 + 1);
+-		float var33 = (float)(var4 + 0);
+-		float var34 = (float)(var4 + 1);
++		double var31 = (double)(var2 + 0);
++		double var32 = (double)(var2 + 1);
++		double var33 = (double)(var4 + 0);
++		double var34 = (double)(var4 + 1);
+ 		byte var35 = 0;
+ 		if((var26 || var27) && !var28 && !var29) {
+ 			var35 = 1;
+@@ -1025,16 +1025,16 @@
+ 		}
+ 
+ 		if(var35 != 0) {
+-			var15 = (double)((float)(var13 + 16) / 256.0F);
+-			var17 = (double)(((float)(var13 + 16) + 15.99F) / 256.0F);
+-			var19 = (double)((float)var14 / 256.0F);
+-			var21 = (double)(((float)var14 + 15.99F) / 256.0F);
++			var15 = (double)((double)(var13 + 16) / 256.0D);
++			var17 = (double)(((double)(var13 + 16) + 15.99D) / 256.0D);
++			var19 = (double)((double)var14 / 256.0D);
++			var21 = (double)(((double)var14 + 15.99D) / 256.0D);
+ 		}
+ 
+ 		if(var35 == 0) {
+ 			if(var27 || var28 || var29 || var26) {
+ 				if(!var26) {
+-					var31 += 5.0F / 16.0F;
++					var31 += 5.0D / 16.0D;
+ 				}
+ 
+ 				if(!var26) {
+@@ -1042,7 +1042,7 @@
+ 				}
+ 
+ 				if(!var27) {
+-					var32 -= 5.0F / 16.0F;
++					var32 -= 5.0D / 16.0D;
+ 				}
+ 
+ 				if(!var27) {
+@@ -1050,7 +1050,7 @@
+ 				}
+ 
+ 				if(!var28) {
+-					var33 += 5.0F / 16.0F;
++					var33 += 5.0D / 16.0D;
+ 				}
+ 
+ 				if(!var28) {
+@@ -1058,7 +1058,7 @@
+ 				}
+ 
+ 				if(!var29) {
+-					var34 -= 5.0F / 16.0F;
++					var34 -= 5.0D / 16.0D;
+ 				}
+ 
+ 				if(!var29) {
+@@ -1066,92 +1066,92 @@
+ 				}
+ 			}
+ 
+-			var5.addVertexWithUV((double)var32, (double)((float)var3 + 0.015625F), (double)var34, var17, var21);
+-			var5.addVertexWithUV((double)var32, (double)((float)var3 + 0.015625F), (double)var33, var17, var19);
+-			var5.addVertexWithUV((double)var31, (double)((float)var3 + 0.015625F), (double)var33, var15, var19);
+-			var5.addVertexWithUV((double)var31, (double)((float)var3 + 0.015625F), (double)var34, var15, var21);
+-			var5.setColorOpaque_F(var8, var8, var8);
+-			var5.addVertexWithUV((double)var32, (double)((float)var3 + 0.015625F), (double)var34, var17, var21 + 1.0D / 16.0D);
+-			var5.addVertexWithUV((double)var32, (double)((float)var3 + 0.015625F), (double)var33, var17, var19 + 1.0D / 16.0D);
+-			var5.addVertexWithUV((double)var31, (double)((float)var3 + 0.015625F), (double)var33, var15, var19 + 1.0D / 16.0D);
+-			var5.addVertexWithUV((double)var31, (double)((float)var3 + 0.015625F), (double)var34, var15, var21 + 1.0D / 16.0D);
++			var5.addVertexWithUV((double)var32, (double)((double)var3 + 0.015625D), (double)var34, var17, var21);
++			var5.addVertexWithUV((double)var32, (double)((double)var3 + 0.015625D), (double)var33, var17, var19);
++			var5.addVertexWithUV((double)var31, (double)((double)var3 + 0.015625D), (double)var33, var15, var19);
++			var5.addVertexWithUV((double)var31, (double)((double)var3 + 0.015625D), (double)var34, var15, var21);
++			var5.setColorOpaque_D(var8, var8, var8);
++			var5.addVertexWithUV((double)var32, (double)((double)var3 + 0.015625D), (double)var34, var17, var21 + 1.0D / 16.0D);
++			var5.addVertexWithUV((double)var32, (double)((double)var3 + 0.015625D), (double)var33, var17, var19 + 1.0D / 16.0D);
++			var5.addVertexWithUV((double)var31, (double)((double)var3 + 0.015625D), (double)var33, var15, var19 + 1.0D / 16.0D);
++			var5.addVertexWithUV((double)var31, (double)((double)var3 + 0.015625D), (double)var34, var15, var21 + 1.0D / 16.0D);
+ 		} else if(var35 == 1) {
+-			var5.addVertexWithUV((double)var32, (double)((float)var3 + 0.015625F), (double)var34, var17, var21);
+-			var5.addVertexWithUV((double)var32, (double)((float)var3 + 0.015625F), (double)var33, var17, var19);
+-			var5.addVertexWithUV((double)var31, (double)((float)var3 + 0.015625F), (double)var33, var15, var19);
+-			var5.addVertexWithUV((double)var31, (double)((float)var3 + 0.015625F), (double)var34, var15, var21);
+-			var5.setColorOpaque_F(var8, var8, var8);
+-			var5.addVertexWithUV((double)var32, (double)((float)var3 + 0.015625F), (double)var34, var17, var21 + 1.0D / 16.0D);
+-			var5.addVertexWithUV((double)var32, (double)((float)var3 + 0.015625F), (double)var33, var17, var19 + 1.0D / 16.0D);
+-			var5.addVertexWithUV((double)var31, (double)((float)var3 + 0.015625F), (double)var33, var15, var19 + 1.0D / 16.0D);
+-			var5.addVertexWithUV((double)var31, (double)((float)var3 + 0.015625F), (double)var34, var15, var21 + 1.0D / 16.0D);
++			var5.addVertexWithUV((double)var32, (double)((double)var3 + 0.015625D), (double)var34, var17, var21);
++			var5.addVertexWithUV((double)var32, (double)((double)var3 + 0.015625D), (double)var33, var17, var19);
++			var5.addVertexWithUV((double)var31, (double)((double)var3 + 0.015625D), (double)var33, var15, var19);
++			var5.addVertexWithUV((double)var31, (double)((double)var3 + 0.015625D), (double)var34, var15, var21);
++			var5.setColorOpaque_D(var8, var8, var8);
++			var5.addVertexWithUV((double)var32, (double)((double)var3 + 0.015625D), (double)var34, var17, var21 + 1.0D / 16.0D);
++			var5.addVertexWithUV((double)var32, (double)((double)var3 + 0.015625D), (double)var33, var17, var19 + 1.0D / 16.0D);
++			var5.addVertexWithUV((double)var31, (double)((double)var3 + 0.015625D), (double)var33, var15, var19 + 1.0D / 16.0D);
++			var5.addVertexWithUV((double)var31, (double)((double)var3 + 0.015625D), (double)var34, var15, var21 + 1.0D / 16.0D);
+ 		} else if(var35 == 2) {
+-			var5.addVertexWithUV((double)var32, (double)((float)var3 + 0.015625F), (double)var34, var17, var21);
+-			var5.addVertexWithUV((double)var32, (double)((float)var3 + 0.015625F), (double)var33, var15, var21);
+-			var5.addVertexWithUV((double)var31, (double)((float)var3 + 0.015625F), (double)var33, var15, var19);
+-			var5.addVertexWithUV((double)var31, (double)((float)var3 + 0.015625F), (double)var34, var17, var19);
+-			var5.setColorOpaque_F(var8, var8, var8);
+-			var5.addVertexWithUV((double)var32, (double)((float)var3 + 0.015625F), (double)var34, var17, var21 + 1.0D / 16.0D);
+-			var5.addVertexWithUV((double)var32, (double)((float)var3 + 0.015625F), (double)var33, var15, var21 + 1.0D / 16.0D);
+-			var5.addVertexWithUV((double)var31, (double)((float)var3 + 0.015625F), (double)var33, var15, var19 + 1.0D / 16.0D);
+-			var5.addVertexWithUV((double)var31, (double)((float)var3 + 0.015625F), (double)var34, var17, var19 + 1.0D / 16.0D);
++			var5.addVertexWithUV((double)var32, (double)((double)var3 + 0.015625D), (double)var34, var17, var21);
++			var5.addVertexWithUV((double)var32, (double)((double)var3 + 0.015625D), (double)var33, var15, var21);
++			var5.addVertexWithUV((double)var31, (double)((double)var3 + 0.015625D), (double)var33, var15, var19);
++			var5.addVertexWithUV((double)var31, (double)((double)var3 + 0.015625D), (double)var34, var17, var19);
++			var5.setColorOpaque_D(var8, var8, var8);
++			var5.addVertexWithUV((double)var32, (double)((double)var3 + 0.015625D), (double)var34, var17, var21 + 1.0D / 16.0D);
++			var5.addVertexWithUV((double)var32, (double)((double)var3 + 0.015625D), (double)var33, var15, var21 + 1.0D / 16.0D);
++			var5.addVertexWithUV((double)var31, (double)((double)var3 + 0.015625D), (double)var33, var15, var19 + 1.0D / 16.0D);
++			var5.addVertexWithUV((double)var31, (double)((double)var3 + 0.015625D), (double)var34, var17, var19 + 1.0D / 16.0D);
+ 		}
+ 
+ 		if(!this.blockAccess.isBlockNormalCube(var2, var3 + 1, var4)) {
+-			var15 = (double)((float)(var13 + 16) / 256.0F);
+-			var17 = (double)(((float)(var13 + 16) + 15.99F) / 256.0F);
+-			var19 = (double)((float)var14 / 256.0F);
+-			var21 = (double)(((float)var14 + 15.99F) / 256.0F);
++			var15 = (double)((double)(var13 + 16) / 256.0D);
++			var17 = (double)(((double)(var13 + 16) + 15.99D) / 256.0D);
++			var19 = (double)((double)var14 / 256.0D);
++			var21 = (double)(((double)var14 + 15.99D) / 256.0D);
+ 			if(this.blockAccess.isBlockNormalCube(var2 - 1, var3, var4) && this.blockAccess.getBlockId(var2 - 1, var3 + 1, var4) == Block.redstoneWire.blockID) {
+-				var5.setColorOpaque_F(var8 * var10, var8 * var11, var8 * var12);
+-				var5.addVertexWithUV((double)((float)var2 + 0.015625F), (double)((float)(var3 + 1) + 7.0F / 320.0F), (double)(var4 + 1), var17, var19);
+-				var5.addVertexWithUV((double)((float)var2 + 0.015625F), (double)(var3 + 0), (double)(var4 + 1), var15, var19);
+-				var5.addVertexWithUV((double)((float)var2 + 0.015625F), (double)(var3 + 0), (double)(var4 + 0), var15, var21);
+-				var5.addVertexWithUV((double)((float)var2 + 0.015625F), (double)((float)(var3 + 1) + 7.0F / 320.0F), (double)(var4 + 0), var17, var21);
+-				var5.setColorOpaque_F(var8, var8, var8);
+-				var5.addVertexWithUV((double)((float)var2 + 0.015625F), (double)((float)(var3 + 1) + 7.0F / 320.0F), (double)(var4 + 1), var17, var19 + 1.0D / 16.0D);
+-				var5.addVertexWithUV((double)((float)var2 + 0.015625F), (double)(var3 + 0), (double)(var4 + 1), var15, var19 + 1.0D / 16.0D);
+-				var5.addVertexWithUV((double)((float)var2 + 0.015625F), (double)(var3 + 0), (double)(var4 + 0), var15, var21 + 1.0D / 16.0D);
+-				var5.addVertexWithUV((double)((float)var2 + 0.015625F), (double)((float)(var3 + 1) + 7.0F / 320.0F), (double)(var4 + 0), var17, var21 + 1.0D / 16.0D);
++				var5.setColorOpaque_D(var8 * var10, var8 * var11, var8 * var12);
++				var5.addVertexWithUV((double)((double)var2 + 0.015625D), (double)((double)(var3 + 1) + 7.0D / 320.0D), (double)(var4 + 1), var17, var19);
++				var5.addVertexWithUV((double)((double)var2 + 0.015625D), (double)(var3 + 0), (double)(var4 + 1), var15, var19);
++				var5.addVertexWithUV((double)((double)var2 + 0.015625D), (double)(var3 + 0), (double)(var4 + 0), var15, var21);
++				var5.addVertexWithUV((double)((double)var2 + 0.015625D), (double)((double)(var3 + 1) + 7.0D / 320.0D), (double)(var4 + 0), var17, var21);
++				var5.setColorOpaque_D(var8, var8, var8);
++				var5.addVertexWithUV((double)((double)var2 + 0.015625D), (double)((double)(var3 + 1) + 7.0D / 320.0D), (double)(var4 + 1), var17, var19 + 1.0D / 16.0D);
++				var5.addVertexWithUV((double)((double)var2 + 0.015625D), (double)(var3 + 0), (double)(var4 + 1), var15, var19 + 1.0D / 16.0D);
++				var5.addVertexWithUV((double)((double)var2 + 0.015625D), (double)(var3 + 0), (double)(var4 + 0), var15, var21 + 1.0D / 16.0D);
++				var5.addVertexWithUV((double)((double)var2 + 0.015625D), (double)((double)(var3 + 1) + 7.0D / 320.0D), (double)(var4 + 0), var17, var21 + 1.0D / 16.0D);
+ 			}
+ 
+ 			if(this.blockAccess.isBlockNormalCube(var2 + 1, var3, var4) && this.blockAccess.getBlockId(var2 + 1, var3 + 1, var4) == Block.redstoneWire.blockID) {
+-				var5.setColorOpaque_F(var8 * var10, var8 * var11, var8 * var12);
+-				var5.addVertexWithUV((double)((float)(var2 + 1) - 0.015625F), (double)(var3 + 0), (double)(var4 + 1), var15, var21);
+-				var5.addVertexWithUV((double)((float)(var2 + 1) - 0.015625F), (double)((float)(var3 + 1) + 7.0F / 320.0F), (double)(var4 + 1), var17, var21);
+-				var5.addVertexWithUV((double)((float)(var2 + 1) - 0.015625F), (double)((float)(var3 + 1) + 7.0F / 320.0F), (double)(var4 + 0), var17, var19);
+-				var5.addVertexWithUV((double)((float)(var2 + 1) - 0.015625F), (double)(var3 + 0), (double)(var4 + 0), var15, var19);
+-				var5.setColorOpaque_F(var8, var8, var8);
+-				var5.addVertexWithUV((double)((float)(var2 + 1) - 0.015625F), (double)(var3 + 0), (double)(var4 + 1), var15, var21 + 1.0D / 16.0D);
+-				var5.addVertexWithUV((double)((float)(var2 + 1) - 0.015625F), (double)((float)(var3 + 1) + 7.0F / 320.0F), (double)(var4 + 1), var17, var21 + 1.0D / 16.0D);
+-				var5.addVertexWithUV((double)((float)(var2 + 1) - 0.015625F), (double)((float)(var3 + 1) + 7.0F / 320.0F), (double)(var4 + 0), var17, var19 + 1.0D / 16.0D);
+-				var5.addVertexWithUV((double)((float)(var2 + 1) - 0.015625F), (double)(var3 + 0), (double)(var4 + 0), var15, var19 + 1.0D / 16.0D);
++				var5.setColorOpaque_D(var8 * var10, var8 * var11, var8 * var12);
++				var5.addVertexWithUV((double)((double)(var2 + 1) - 0.015625D), (double)(var3 + 0), (double)(var4 + 1), var15, var21);
++				var5.addVertexWithUV((double)((double)(var2 + 1) - 0.015625D), (double)((double)(var3 + 1) + 7.0D / 320.0D), (double)(var4 + 1), var17, var21);
++				var5.addVertexWithUV((double)((double)(var2 + 1) - 0.015625D), (double)((double)(var3 + 1) + 7.0D / 320.0D), (double)(var4 + 0), var17, var19);
++				var5.addVertexWithUV((double)((double)(var2 + 1) - 0.015625D), (double)(var3 + 0), (double)(var4 + 0), var15, var19);
++				var5.setColorOpaque_D(var8, var8, var8);
++				var5.addVertexWithUV((double)((double)(var2 + 1) - 0.015625D), (double)(var3 + 0), (double)(var4 + 1), var15, var21 + 1.0D / 16.0D);
++				var5.addVertexWithUV((double)((double)(var2 + 1) - 0.015625D), (double)((double)(var3 + 1) + 7.0D / 320.0D), (double)(var4 + 1), var17, var21 + 1.0D / 16.0D);
++				var5.addVertexWithUV((double)((double)(var2 + 1) - 0.015625D), (double)((double)(var3 + 1) + 7.0D / 320.0D), (double)(var4 + 0), var17, var19 + 1.0D / 16.0D);
++				var5.addVertexWithUV((double)((double)(var2 + 1) - 0.015625D), (double)(var3 + 0), (double)(var4 + 0), var15, var19 + 1.0D / 16.0D);
+ 			}
+ 
+ 			if(this.blockAccess.isBlockNormalCube(var2, var3, var4 - 1) && this.blockAccess.getBlockId(var2, var3 + 1, var4 - 1) == Block.redstoneWire.blockID) {
+-				var5.setColorOpaque_F(var8 * var10, var8 * var11, var8 * var12);
+-				var5.addVertexWithUV((double)(var2 + 1), (double)(var3 + 0), (double)((float)var4 + 0.015625F), var15, var21);
+-				var5.addVertexWithUV((double)(var2 + 1), (double)((float)(var3 + 1) + 7.0F / 320.0F), (double)((float)var4 + 0.015625F), var17, var21);
+-				var5.addVertexWithUV((double)(var2 + 0), (double)((float)(var3 + 1) + 7.0F / 320.0F), (double)((float)var4 + 0.015625F), var17, var19);
+-				var5.addVertexWithUV((double)(var2 + 0), (double)(var3 + 0), (double)((float)var4 + 0.015625F), var15, var19);
+-				var5.setColorOpaque_F(var8, var8, var8);
+-				var5.addVertexWithUV((double)(var2 + 1), (double)(var3 + 0), (double)((float)var4 + 0.015625F), var15, var21 + 1.0D / 16.0D);
+-				var5.addVertexWithUV((double)(var2 + 1), (double)((float)(var3 + 1) + 7.0F / 320.0F), (double)((float)var4 + 0.015625F), var17, var21 + 1.0D / 16.0D);
+-				var5.addVertexWithUV((double)(var2 + 0), (double)((float)(var3 + 1) + 7.0F / 320.0F), (double)((float)var4 + 0.015625F), var17, var19 + 1.0D / 16.0D);
+-				var5.addVertexWithUV((double)(var2 + 0), (double)(var3 + 0), (double)((float)var4 + 0.015625F), var15, var19 + 1.0D / 16.0D);
++				var5.setColorOpaque_D(var8 * var10, var8 * var11, var8 * var12);
++				var5.addVertexWithUV((double)(var2 + 1), (double)(var3 + 0), (double)((double)var4 + 0.015625D), var15, var21);
++				var5.addVertexWithUV((double)(var2 + 1), (double)((double)(var3 + 1) + 7.0D / 320.0D), (double)((double)var4 + 0.015625D), var17, var21);
++				var5.addVertexWithUV((double)(var2 + 0), (double)((double)(var3 + 1) + 7.0D / 320.0D), (double)((double)var4 + 0.015625D), var17, var19);
++				var5.addVertexWithUV((double)(var2 + 0), (double)(var3 + 0), (double)((double)var4 + 0.015625D), var15, var19);
++				var5.setColorOpaque_D(var8, var8, var8);
++				var5.addVertexWithUV((double)(var2 + 1), (double)(var3 + 0), (double)((double)var4 + 0.015625D), var15, var21 + 1.0D / 16.0D);
++				var5.addVertexWithUV((double)(var2 + 1), (double)((double)(var3 + 1) + 7.0D / 320.0D), (double)((double)var4 + 0.015625D), var17, var21 + 1.0D / 16.0D);
++				var5.addVertexWithUV((double)(var2 + 0), (double)((double)(var3 + 1) + 7.0D / 320.0D), (double)((double)var4 + 0.015625D), var17, var19 + 1.0D / 16.0D);
++				var5.addVertexWithUV((double)(var2 + 0), (double)(var3 + 0), (double)((double)var4 + 0.015625D), var15, var19 + 1.0D / 16.0D);
+ 			}
+ 
+ 			if(this.blockAccess.isBlockNormalCube(var2, var3, var4 + 1) && this.blockAccess.getBlockId(var2, var3 + 1, var4 + 1) == Block.redstoneWire.blockID) {
+-				var5.setColorOpaque_F(var8 * var10, var8 * var11, var8 * var12);
+-				var5.addVertexWithUV((double)(var2 + 1), (double)((float)(var3 + 1) + 7.0F / 320.0F), (double)((float)(var4 + 1) - 0.015625F), var17, var19);
+-				var5.addVertexWithUV((double)(var2 + 1), (double)(var3 + 0), (double)((float)(var4 + 1) - 0.015625F), var15, var19);
+-				var5.addVertexWithUV((double)(var2 + 0), (double)(var3 + 0), (double)((float)(var4 + 1) - 0.015625F), var15, var21);
+-				var5.addVertexWithUV((double)(var2 + 0), (double)((float)(var3 + 1) + 7.0F / 320.0F), (double)((float)(var4 + 1) - 0.015625F), var17, var21);
+-				var5.setColorOpaque_F(var8, var8, var8);
+-				var5.addVertexWithUV((double)(var2 + 1), (double)((float)(var3 + 1) + 7.0F / 320.0F), (double)((float)(var4 + 1) - 0.015625F), var17, var19 + 1.0D / 16.0D);
+-				var5.addVertexWithUV((double)(var2 + 1), (double)(var3 + 0), (double)((float)(var4 + 1) - 0.015625F), var15, var19 + 1.0D / 16.0D);
+-				var5.addVertexWithUV((double)(var2 + 0), (double)(var3 + 0), (double)((float)(var4 + 1) - 0.015625F), var15, var21 + 1.0D / 16.0D);
+-				var5.addVertexWithUV((double)(var2 + 0), (double)((float)(var3 + 1) + 7.0F / 320.0F), (double)((float)(var4 + 1) - 0.015625F), var17, var21 + 1.0D / 16.0D);
++				var5.setColorOpaque_D(var8 * var10, var8 * var11, var8 * var12);
++				var5.addVertexWithUV((double)(var2 + 1), (double)((double)(var3 + 1) + 7.0D / 320.0D), (double)((double)(var4 + 1) - 0.015625D), var17, var19);
++				var5.addVertexWithUV((double)(var2 + 1), (double)(var3 + 0), (double)((double)(var4 + 1) - 0.015625D), var15, var19);
++				var5.addVertexWithUV((double)(var2 + 0), (double)(var3 + 0), (double)((double)(var4 + 1) - 0.015625D), var15, var21);
++				var5.addVertexWithUV((double)(var2 + 0), (double)((double)(var3 + 1) + 7.0D / 320.0D), (double)((double)(var4 + 1) - 0.015625D), var17, var21);
++				var5.setColorOpaque_D(var8, var8, var8);
++				var5.addVertexWithUV((double)(var2 + 1), (double)((double)(var3 + 1) + 7.0D / 320.0D), (double)((double)(var4 + 1) - 0.015625D), var17, var19 + 1.0D / 16.0D);
++				var5.addVertexWithUV((double)(var2 + 1), (double)(var3 + 0), (double)((double)(var4 + 1) - 0.015625D), var15, var19 + 1.0D / 16.0D);
++				var5.addVertexWithUV((double)(var2 + 0), (double)(var3 + 0), (double)((double)(var4 + 1) - 0.015625D), var15, var21 + 1.0D / 16.0D);
++				var5.addVertexWithUV((double)(var2 + 0), (double)((double)(var3 + 1) + 7.0D / 320.0D), (double)((double)(var4 + 1) - 0.015625D), var17, var21 + 1.0D / 16.0D);
+ 			}
+ 		}
+ 
+@@ -1174,51 +1174,51 @@
+ 		var5.setColorOpaque_F(var8, var8, var8);
+ 		int var9 = (var7 & 15) << 4;
+ 		int var10 = var7 & 240;
+-		double var11 = (double)((float)var9 / 256.0F);
+-		double var13 = (double)(((float)var9 + 15.99F) / 256.0F);
+-		double var15 = (double)((float)var10 / 256.0F);
+-		double var17 = (double)(((float)var10 + 15.99F) / 256.0F);
+-		float var19 = 1.0F / 16.0F;
+-		float var20 = (float)(var2 + 1);
+-		float var21 = (float)(var2 + 1);
+-		float var22 = (float)(var2 + 0);
+-		float var23 = (float)(var2 + 0);
+-		float var24 = (float)(var4 + 0);
+-		float var25 = (float)(var4 + 1);
+-		float var26 = (float)(var4 + 1);
+-		float var27 = (float)(var4 + 0);
+-		float var28 = (float)var3 + var19;
+-		float var29 = (float)var3 + var19;
+-		float var30 = (float)var3 + var19;
+-		float var31 = (float)var3 + var19;
++		double var11 = (double)((double)var9 / 256.0D);
++		double var13 = (double)(((double)var9 + 15.99D) / 256.0D);
++		double var15 = (double)((double)var10 / 256.0D);
++		double var17 = (double)(((double)var10 + 15.99D) / 256.0D);
++		double var19 = 1.0F / 16.0F;
++		double var20 = (double)(var2 + 1);
++		double var21 = (double)(var2 + 1);
++		double var22 = (double)(var2 + 0);
++		double var23 = (double)(var2 + 0);
++		double var24 = (double)(var4 + 0);
++		double var25 = (double)(var4 + 1);
++		double var26 = (double)(var4 + 1);
++		double var27 = (double)(var4 + 0);
++		double var28 = (double)var3 + var19;
++		double var29 = (double)var3 + var19;
++		double var30 = (double)var3 + var19;
++		double var31 = (double)var3 + var19;
+ 		if(var6 != 1 && var6 != 2 && var6 != 3 && var6 != 7) {
+ 			if(var6 == 8) {
+-				var21 = (float)(var2 + 0);
++				var21 = (double)(var2 + 0);
+ 				var20 = var21;
+-				var23 = (float)(var2 + 1);
++				var23 = (double)(var2 + 1);
+ 				var22 = var23;
+-				var27 = (float)(var4 + 1);
++				var27 = (double)(var4 + 1);
+ 				var24 = var27;
+-				var26 = (float)(var4 + 0);
++				var26 = (double)(var4 + 0);
+ 				var25 = var26;
+ 			} else if(var6 == 9) {
+-				var23 = (float)(var2 + 0);
++				var23 = (double)(var2 + 0);
+ 				var20 = var23;
+-				var22 = (float)(var2 + 1);
++				var22 = (double)(var2 + 1);
+ 				var21 = var22;
+-				var25 = (float)(var4 + 0);
++				var25 = (double)(var4 + 0);
+ 				var24 = var25;
+-				var27 = (float)(var4 + 1);
++				var27 = (double)(var4 + 1);
+ 				var26 = var27;
+ 			}
+ 		} else {
+-			var23 = (float)(var2 + 1);
++			var23 = (double)(var2 + 1);
+ 			var20 = var23;
+-			var22 = (float)(var2 + 0);
++			var22 = (double)(var2 + 0);
+ 			var21 = var22;
+-			var25 = (float)(var4 + 1);
++			var25 = (double)(var4 + 1);
+ 			var24 = var25;
+-			var27 = (float)(var4 + 0);
++			var27 = (double)(var4 + 0);
+ 			var26 = var27;
+ 		}
+ 
+@@ -1251,42 +1251,42 @@
+ 		}
+ 
+ 		float var7 = var1.getBlockBrightness(this.blockAccess, var2, var3, var4);
+-		var5.setColorOpaque_F(var7, var7, var7);
++		var5.setColorOpaque_D(var7, var7, var7);
+ 		int var8 = (var6 & 15) << 4;
+ 		int var9 = var6 & 240;
+-		double var10 = (double)((float)var8 / 256.0F);
+-		double var12 = (double)(((float)var8 + 15.99F) / 256.0F);
+-		double var14 = (double)((float)var9 / 256.0F);
+-		double var16 = (double)(((float)var9 + 15.99F) / 256.0F);
++		double var10 = (double)((double)var8 / 256.0D);
++		double var12 = (double)(((double)var8 + 15.99D) / 256.0D);
++		double var14 = (double)((double)var9 / 256.0D);
++		double var16 = (double)(((double)var9 + 15.99D) / 256.0D);
+ 		int var18 = this.blockAccess.getBlockMetadata(var2, var3, var4);
+-		float var19 = 0.0F;
+-		float var20 = 0.05F;
++		double var19 = 0.0D;
++		double var20 = 0.05D;
+ 		if(var18 == 5) {
+-			var5.addVertexWithUV((double)((float)var2 + var20), (double)((float)(var3 + 1) + var19), (double)((float)(var4 + 1) + var19), var10, var14);
+-			var5.addVertexWithUV((double)((float)var2 + var20), (double)((float)(var3 + 0) - var19), (double)((float)(var4 + 1) + var19), var10, var16);
+-			var5.addVertexWithUV((double)((float)var2 + var20), (double)((float)(var3 + 0) - var19), (double)((float)(var4 + 0) - var19), var12, var16);
+-			var5.addVertexWithUV((double)((float)var2 + var20), (double)((float)(var3 + 1) + var19), (double)((float)(var4 + 0) - var19), var12, var14);
++			var5.addVertexWithUV((double)((double)var2 + var20), (double)((double)(var3 + 1) + var19), (double)((double)(var4 + 1) + var19), var10, var14);
++			var5.addVertexWithUV((double)((double)var2 + var20), (double)((double)(var3 + 0) - var19), (double)((double)(var4 + 1) + var19), var10, var16);
++			var5.addVertexWithUV((double)((double)var2 + var20), (double)((double)(var3 + 0) - var19), (double)((double)(var4 + 0) - var19), var12, var16);
++			var5.addVertexWithUV((double)((double)var2 + var20), (double)((double)(var3 + 1) + var19), (double)((double)(var4 + 0) - var19), var12, var14);
+ 		}
+ 
+ 		if(var18 == 4) {
+-			var5.addVertexWithUV((double)((float)(var2 + 1) - var20), (double)((float)(var3 + 0) - var19), (double)((float)(var4 + 1) + var19), var12, var16);
+-			var5.addVertexWithUV((double)((float)(var2 + 1) - var20), (double)((float)(var3 + 1) + var19), (double)((float)(var4 + 1) + var19), var12, var14);
+-			var5.addVertexWithUV((double)((float)(var2 + 1) - var20), (double)((float)(var3 + 1) + var19), (double)((float)(var4 + 0) - var19), var10, var14);
+-			var5.addVertexWithUV((double)((float)(var2 + 1) - var20), (double)((float)(var3 + 0) - var19), (double)((float)(var4 + 0) - var19), var10, var16);
++			var5.addVertexWithUV((double)((double)(var2 + 1) - var20), (double)((double)(var3 + 0) - var19), (double)((double)(var4 + 1) + var19), var12, var16);
++			var5.addVertexWithUV((double)((double)(var2 + 1) - var20), (double)((double)(var3 + 1) + var19), (double)((double)(var4 + 1) + var19), var12, var14);
++			var5.addVertexWithUV((double)((double)(var2 + 1) - var20), (double)((double)(var3 + 1) + var19), (double)((double)(var4 + 0) - var19), var10, var14);
++			var5.addVertexWithUV((double)((double)(var2 + 1) - var20), (double)((double)(var3 + 0) - var19), (double)((double)(var4 + 0) - var19), var10, var16);
+ 		}
+ 
+ 		if(var18 == 3) {
+-			var5.addVertexWithUV((double)((float)(var2 + 1) + var19), (double)((float)(var3 + 0) - var19), (double)((float)var4 + var20), var12, var16);
+-			var5.addVertexWithUV((double)((float)(var2 + 1) + var19), (double)((float)(var3 + 1) + var19), (double)((float)var4 + var20), var12, var14);
+-			var5.addVertexWithUV((double)((float)(var2 + 0) - var19), (double)((float)(var3 + 1) + var19), (double)((float)var4 + var20), var10, var14);
+-			var5.addVertexWithUV((double)((float)(var2 + 0) - var19), (double)((float)(var3 + 0) - var19), (double)((float)var4 + var20), var10, var16);
++			var5.addVertexWithUV((double)((double)(var2 + 1) + var19), (double)((double)(var3 + 0) - var19), (double)((double)var4 + var20), var12, var16);
++			var5.addVertexWithUV((double)((double)(var2 + 1) + var19), (double)((double)(var3 + 1) + var19), (double)((double)var4 + var20), var12, var14);
++			var5.addVertexWithUV((double)((double)(var2 + 0) - var19), (double)((double)(var3 + 1) + var19), (double)((double)var4 + var20), var10, var14);
++			var5.addVertexWithUV((double)((double)(var2 + 0) - var19), (double)((double)(var3 + 0) - var19), (double)((double)var4 + var20), var10, var16);
+ 		}
+ 
+ 		if(var18 == 2) {
+-			var5.addVertexWithUV((double)((float)(var2 + 1) + var19), (double)((float)(var3 + 1) + var19), (double)((float)(var4 + 1) - var20), var10, var14);
+-			var5.addVertexWithUV((double)((float)(var2 + 1) + var19), (double)((float)(var3 + 0) - var19), (double)((float)(var4 + 1) - var20), var10, var16);
+-			var5.addVertexWithUV((double)((float)(var2 + 0) - var19), (double)((float)(var3 + 0) - var19), (double)((float)(var4 + 1) - var20), var12, var16);
+-			var5.addVertexWithUV((double)((float)(var2 + 0) - var19), (double)((float)(var3 + 1) + var19), (double)((float)(var4 + 1) - var20), var12, var14);
++			var5.addVertexWithUV((double)((double)(var2 + 1) + var19), (double)((double)(var3 + 1) + var19), (double)((double)(var4 + 1) - var20), var10, var14);
++			var5.addVertexWithUV((double)((double)(var2 + 1) + var19), (double)((double)(var3 + 0) - var19), (double)((double)(var4 + 1) - var20), var10, var16);
++			var5.addVertexWithUV((double)((double)(var2 + 0) - var19), (double)((double)(var3 + 0) - var19), (double)((double)(var4 + 1) - var20), var12, var16);
++			var5.addVertexWithUV((double)((double)(var2 + 0) - var19), (double)((double)(var3 + 1) + var19), (double)((double)(var4 + 1) - var20), var12, var14);
+ 		}
+ 
+ 		return true;
+@@ -1472,9 +1472,9 @@
+ 	public boolean renderBlockFluids(Block var1, int var2, int var3, int var4) {
+ 		Tessellator var5 = Tessellator.instance;
+ 		int var6 = var1.colorMultiplier(this.blockAccess, var2, var3, var4);
+-		float var7 = (float)(var6 >> 16 & 255) / 255.0F;
+-		float var8 = (float)(var6 >> 8 & 255) / 255.0F;
+-		float var9 = (float)(var6 & 255) / 255.0F;
++		double var7 = (double)(var6 >> 16 & 255) / 255.0D;
++		double var8 = (double)(var6 >> 8 & 255) / 255.0D;
++		double var9 = (double)(var6 & 255) / 255.0D;
+ 		boolean var10 = var1.shouldSideBeRendered(this.blockAccess, var2, var3 + 1, var4, 1);
+ 		boolean var11 = var1.shouldSideBeRendered(this.blockAccess, var2, var3 - 1, var4, 0);
+ 		boolean[] var12 = new boolean[]{var1.shouldSideBeRendered(this.blockAccess, var2, var3, var4 - 1, 2), var1.shouldSideBeRendered(this.blockAccess, var2, var3, var4 + 1, 3), var1.shouldSideBeRendered(this.blockAccess, var2 - 1, var3, var4, 4), var1.shouldSideBeRendered(this.blockAccess, var2 + 1, var3, var4, 5)};
+@@ -1482,28 +1482,28 @@
+ 			return false;
+ 		} else {
+ 			boolean var13 = false;
+-			float var14 = 0.5F;
+-			float var15 = 1.0F;
+-			float var16 = 0.8F;
+-			float var17 = 0.6F;
++			double var14 = 0.5D;
++			double var15 = 1.0D;
++			double var16 = 0.8D;
++			double var17 = 0.6D;
+ 			double var18 = 0.0D;
+ 			double var20 = 1.0D;
+ 			Material var22 = var1.blockMaterial;
+ 			int var23 = this.blockAccess.getBlockMetadata(var2, var3, var4);
+-			float var24 = this.func_1224_a(var2, var3, var4, var22);
+-			float var25 = this.func_1224_a(var2, var3, var4 + 1, var22);
+-			float var26 = this.func_1224_a(var2 + 1, var3, var4 + 1, var22);
+-			float var27 = this.func_1224_a(var2 + 1, var3, var4, var22);
++			double var24 = this.func_1224_a(var2, var3, var4, var22);
++			double var25 = this.func_1224_a(var2, var3, var4 + 1, var22);
++			double var26 = this.func_1224_a(var2 + 1, var3, var4 + 1, var22);
++			double var27 = this.func_1224_a(var2 + 1, var3, var4, var22);
+ 			int var28;
+ 			int var31;
+-			float var36;
+-			float var37;
+-			float var38;
++			double var36;
++			double var37;
++			double var38;
+ 			if(this.renderAllFaces || var10) {
+ 				var13 = true;
+ 				var28 = var1.getBlockTextureFromSideAndMetadata(1, var23);
+-				float var29 = (float)BlockFluid.func_293_a(this.blockAccess, var2, var3, var4, var22);
+-				if(var29 > -999.0F) {
++				double var29 = (double)BlockFluid.func_293_a(this.blockAccess, var2, var3, var4, var22);
++				if(var29 > -999.0D) {
+ 					var28 = var1.getBlockTextureFromSideAndMetadata(2, var23);
+ 				}
+ 
+@@ -1511,26 +1511,26 @@
+ 				var31 = var28 & 240;
+ 				double var32 = ((double)var30 + 8.0D) / 256.0D;
+ 				double var34 = ((double)var31 + 8.0D) / 256.0D;
+-				if(var29 < -999.0F) {
+-					var29 = 0.0F;
++				if(var29 < -999.0D) {
++					var29 = 0.0D;
+ 				} else {
+-					var32 = (double)((float)(var30 + 16) / 256.0F);
+-					var34 = (double)((float)(var31 + 16) / 256.0F);
++					var32 = (double)((double)(var30 + 16) / 256.0D);
++					var34 = (double)((double)(var31 + 16) / 256.0D);
+ 				}
+ 
+-				var36 = MathHelper.sin(var29) * 8.0F / 256.0F;
+-				var37 = MathHelper.cos(var29) * 8.0F / 256.0F;
++				var36 = Math.sin(var29) * 8.0D / 256.0D;
++				var37 = Math.cos(var29) * 8.0D / 256.0D;
+ 				var38 = var1.getBlockBrightness(this.blockAccess, var2, var3, var4);
+-				var5.setColorOpaque_F(var15 * var38 * var7, var15 * var38 * var8, var15 * var38 * var9);
+-				var5.addVertexWithUV((double)(var2 + 0), (double)((float)var3 + var24), (double)(var4 + 0), var32 - (double)var37 - (double)var36, var34 - (double)var37 + (double)var36);
+-				var5.addVertexWithUV((double)(var2 + 0), (double)((float)var3 + var25), (double)(var4 + 1), var32 - (double)var37 + (double)var36, var34 + (double)var37 + (double)var36);
+-				var5.addVertexWithUV((double)(var2 + 1), (double)((float)var3 + var26), (double)(var4 + 1), var32 + (double)var37 + (double)var36, var34 + (double)var37 - (double)var36);
+-				var5.addVertexWithUV((double)(var2 + 1), (double)((float)var3 + var27), (double)(var4 + 0), var32 + (double)var37 - (double)var36, var34 - (double)var37 - (double)var36);
++				var5.setColorOpaque_D(var15 * var38 * var7, var15 * var38 * var8, var15 * var38 * var9);
++				var5.addVertexWithUV((double)(var2 + 0), (double)((double)var3 + var24), (double)(var4 + 0), var32 - (double)var37 - (double)var36, var34 - (double)var37 + (double)var36);
++				var5.addVertexWithUV((double)(var2 + 0), (double)((double)var3 + var25), (double)(var4 + 1), var32 - (double)var37 + (double)var36, var34 + (double)var37 + (double)var36);
++				var5.addVertexWithUV((double)(var2 + 1), (double)((double)var3 + var26), (double)(var4 + 1), var32 + (double)var37 + (double)var36, var34 + (double)var37 - (double)var36);
++				var5.addVertexWithUV((double)(var2 + 1), (double)((double)var3 + var27), (double)(var4 + 0), var32 + (double)var37 - (double)var36, var34 - (double)var37 - (double)var36);
+ 			}
+ 
+ 			if(this.renderAllFaces || var11) {
+ 				float var52 = var1.getBlockBrightness(this.blockAccess, var2, var3 - 1, var4);
+-				var5.setColorOpaque_F(var14 * var52, var14 * var52, var14 * var52);
++				var5.setColorOpaque_D(var14 * var52, var14 * var52, var14 * var52);
+ 				this.renderBottomFace(var1, (double)var2, (double)var3, (double)var4, var1.getBlockTextureFromSide(0));
+ 				var13 = true;
+ 			}
+@@ -1558,55 +1558,55 @@
+ 				int var33 = (var54 & 15) << 4;
+ 				int var55 = var54 & 240;
+ 				if(this.renderAllFaces || var12[var28]) {
+-					float var35;
+-					float var39;
+-					float var40;
++					double var35;
++					double var39;
++					double var40;
+ 					if(var28 == 0) {
+ 						var35 = var24;
+ 						var36 = var27;
+-						var37 = (float)var2;
+-						var39 = (float)(var2 + 1);
+-						var38 = (float)var4;
+-						var40 = (float)var4;
++						var37 = (double)var2;
++						var39 = (double)(var2 + 1);
++						var38 = (double)var4;
++						var40 = (double)var4;
+ 					} else if(var28 == 1) {
+ 						var35 = var26;
+ 						var36 = var25;
+-						var37 = (float)(var2 + 1);
+-						var39 = (float)var2;
+-						var38 = (float)(var4 + 1);
+-						var40 = (float)(var4 + 1);
++						var37 = (double)(var2 + 1);
++						var39 = (double)var2;
++						var38 = (double)(var4 + 1);
++						var40 = (double)(var4 + 1);
+ 					} else if(var28 == 2) {
+ 						var35 = var25;
+ 						var36 = var24;
+-						var37 = (float)var2;
+-						var39 = (float)var2;
+-						var38 = (float)(var4 + 1);
+-						var40 = (float)var4;
++						var37 = (double)var2;
++						var39 = (double)var2;
++						var38 = (double)(var4 + 1);
++						var40 = (double)var4;
+ 					} else {
+ 						var35 = var27;
+ 						var36 = var26;
+-						var37 = (float)(var2 + 1);
+-						var39 = (float)(var2 + 1);
+-						var38 = (float)var4;
+-						var40 = (float)(var4 + 1);
++						var37 = (double)(var2 + 1);
++						var39 = (double)(var2 + 1);
++						var38 = (double)var4;
++						var40 = (double)(var4 + 1);
+ 					}
+ 
+ 					var13 = true;
+-					double var41 = (double)((float)(var33 + 0) / 256.0F);
++					double var41 = (double)((double)(var33 + 0) / 256.0D);
+ 					double var43 = ((double)(var33 + 16) - 0.01D) / 256.0D;
+-					double var45 = (double)(((float)var55 + (1.0F - var35) * 16.0F) / 256.0F);
+-					double var47 = (double)(((float)var55 + (1.0F - var36) * 16.0F) / 256.0F);
++					double var45 = (double)(((double)var55 + (1.0D - var35) * 16.0D) / 256.0D);
++					double var47 = (double)(((double)var55 + (1.0D - var36) * 16.0D) / 256.0D);
+ 					double var49 = ((double)(var55 + 16) - 0.01D) / 256.0D;
+-					float var51 = var1.getBlockBrightness(this.blockAccess, var53, var3, var31);
++					double var51 = var1.getBlockBrightness(this.blockAccess, var53, var3, var31);
+ 					if(var28 < 2) {
+ 						var51 *= var16;
+ 					} else {
+ 						var51 *= var17;
+ 					}
+ 
+-					var5.setColorOpaque_F(var15 * var51 * var7, var15 * var51 * var8, var15 * var51 * var9);
+-					var5.addVertexWithUV((double)var37, (double)((float)var3 + var35), (double)var38, var41, var45);
+-					var5.addVertexWithUV((double)var39, (double)((float)var3 + var36), (double)var40, var43, var47);
++					var5.setColorOpaque_D(var15 * var51 * var7, var15 * var51 * var8, var15 * var51 * var9);
++					var5.addVertexWithUV((double)var37, (double)((double)var3 + var35), (double)var38, var41, var45);
++					var5.addVertexWithUV((double)var39, (double)((double)var3 + var36), (double)var40, var43, var47);
+ 					var5.addVertexWithUV((double)var39, (double)(var3 + 0), (double)var40, var43, var49);
+ 					var5.addVertexWithUV((double)var37, (double)(var3 + 0), (double)var38, var41, var49);
+ 				}
+@@ -2213,26 +2213,26 @@
+ 		return var8;
+ 	}
+ 
+-	public boolean renderStandardBlockWithColorMultiplier(Block var1, int var2, int var3, int var4, float var5, float var6, float var7) {
++	public boolean renderStandardBlockWithColorMultiplier(Block var1, int var2, int var3, int var4, double var5, double var6, double var7) {
+ 		this.enableAO = false;
+ 		Tessellator var8 = Tessellator.instance;
+ 		boolean var9 = false;
+-		float var10 = 0.5F;
+-		float var11 = 1.0F;
+-		float var12 = 0.8F;
+-		float var13 = 0.6F;
+-		float var14 = var11 * var5;
+-		float var15 = var11 * var6;
+-		float var16 = var11 * var7;
+-		float var17 = var10;
+-		float var18 = var12;
+-		float var19 = var13;
+-		float var20 = var10;
+-		float var21 = var12;
+-		float var22 = var13;
+-		float var23 = var10;
+-		float var24 = var12;
+-		float var25 = var13;
++		double var10 = 0.5D;
++		double var11 = 1.0D;
++		double var12 = 0.8D;
++		double var13 = 0.6D;
++		double var14 = var11 * var5;
++		double var15 = var11 * var6;
++		double var16 = var11 * var7;
++		double var17 = var10;
++		double var18 = var12;
++		double var19 = var13;
++		double var20 = var10;
++		double var21 = var12;
++		double var22 = var13;
++		double var23 = var10;
++		double var24 = var12;
++		double var25 = var13;
+ 		if(var1 != Block.grass) {
+ 			var17 = var10 * var5;
+ 			var18 = var12 * var5;
+@@ -2245,11 +2245,11 @@
+ 			var25 = var13 * var7;
+ 		}
+ 
+-		float var26 = var1.getBlockBrightness(this.blockAccess, var2, var3, var4);
+-		float var27;
++		double var26 = var1.getBlockBrightness(this.blockAccess, var2, var3, var4);
++		double var27;
+ 		if(this.renderAllFaces || var1.shouldSideBeRendered(this.blockAccess, var2, var3 - 1, var4, 0)) {
+ 			var27 = var1.getBlockBrightness(this.blockAccess, var2, var3 - 1, var4);
+-			var8.setColorOpaque_F(var17 * var27, var20 * var27, var23 * var27);
++			var8.setColorOpaque_D(var17 * var27, var20 * var27, var23 * var27);
+ 			this.renderBottomFace(var1, (double)var2, (double)var3, (double)var4, var1.getBlockTexture(this.blockAccess, var2, var3, var4, 0));
+ 			var9 = true;
+ 		}
+@@ -2260,7 +2260,7 @@
+ 				var27 = var26;
+ 			}
+ 
+-			var8.setColorOpaque_F(var14 * var27, var15 * var27, var16 * var27);
++			var8.setColorOpaque_D(var14 * var27, var15 * var27, var16 * var27);
+ 			this.renderTopFace(var1, (double)var2, (double)var3, (double)var4, var1.getBlockTexture(this.blockAccess, var2, var3, var4, 1));
+ 			var9 = true;
+ 		}
+@@ -2272,11 +2272,11 @@
+ 				var27 = var26;
+ 			}
+ 
+-			var8.setColorOpaque_F(var18 * var27, var21 * var27, var24 * var27);
++			var8.setColorOpaque_D(var18 * var27, var21 * var27, var24 * var27);
+ 			var28 = var1.getBlockTexture(this.blockAccess, var2, var3, var4, 2);
+ 			this.renderEastFace(var1, (double)var2, (double)var3, (double)var4, var28);
+ 			if(fancyGrass && var28 == 3 && this.overrideBlockTexture < 0) {
+-				var8.setColorOpaque_F(var18 * var27 * var5, var21 * var27 * var6, var24 * var27 * var7);
++				var8.setColorOpaque_D(var18 * var27 * var5, var21 * var27 * var6, var24 * var27 * var7);
+ 				this.renderEastFace(var1, (double)var2, (double)var3, (double)var4, 38);
+ 			}
+ 
+@@ -2289,11 +2289,11 @@
+ 				var27 = var26;
+ 			}
+ 
+-			var8.setColorOpaque_F(var18 * var27, var21 * var27, var24 * var27);
++			var8.setColorOpaque_D(var18 * var27, var21 * var27, var24 * var27);
+ 			var28 = var1.getBlockTexture(this.blockAccess, var2, var3, var4, 3);
+ 			this.renderWestFace(var1, (double)var2, (double)var3, (double)var4, var28);
+ 			if(fancyGrass && var28 == 3 && this.overrideBlockTexture < 0) {
+-				var8.setColorOpaque_F(var18 * var27 * var5, var21 * var27 * var6, var24 * var27 * var7);
++				var8.setColorOpaque_D(var18 * var27 * var5, var21 * var27 * var6, var24 * var27 * var7);
+ 				this.renderWestFace(var1, (double)var2, (double)var3, (double)var4, 38);
+ 			}
+ 
+@@ -2306,11 +2306,11 @@
+ 				var27 = var26;
+ 			}
+ 
+-			var8.setColorOpaque_F(var19 * var27, var22 * var27, var25 * var27);
++			var8.setColorOpaque_D(var19 * var27, var22 * var27, var25 * var27);
+ 			var28 = var1.getBlockTexture(this.blockAccess, var2, var3, var4, 4);
+ 			this.renderNorthFace(var1, (double)var2, (double)var3, (double)var4, var28);
+ 			if(fancyGrass && var28 == 3 && this.overrideBlockTexture < 0) {
+-				var8.setColorOpaque_F(var19 * var27 * var5, var22 * var27 * var6, var25 * var27 * var7);
++				var8.setColorOpaque_D(var19 * var27 * var5, var22 * var27 * var6, var25 * var27 * var7);
+ 				this.renderNorthFace(var1, (double)var2, (double)var3, (double)var4, 38);
+ 			}
+ 
+@@ -2323,11 +2323,11 @@
+ 				var27 = var26;
+ 			}
+ 
+-			var8.setColorOpaque_F(var19 * var27, var22 * var27, var25 * var27);
++			var8.setColorOpaque_D(var19 * var27, var22 * var27, var25 * var27);
+ 			var28 = var1.getBlockTexture(this.blockAccess, var2, var3, var4, 5);
+ 			this.renderSouthFace(var1, (double)var2, (double)var3, (double)var4, var28);
+ 			if(fancyGrass && var28 == 3 && this.overrideBlockTexture < 0) {
+-				var8.setColorOpaque_F(var19 * var27 * var5, var22 * var27 * var6, var25 * var27 * var7);
++				var8.setColorOpaque_D(var19 * var27 * var5, var22 * var27 * var6, var25 * var27 * var7);
+ 				this.renderSouthFace(var1, (double)var2, (double)var3, (double)var4, 38);
+ 			}
+ 
+@@ -3199,7 +3199,7 @@
+ 				var4.draw();
+ 			} else if(var5 == 13) {
+ 				var1.setBlockBoundsForItemRender();
+-				GL11.glTranslatef(-0.5F, -0.5F, -0.5F);
++				GL11.glTranslated(-0.5F, -0.5F, -0.5F);
+ 				var6 = 1.0F / 16.0F;
+ 				var4.startDrawingQuads();
+ 				var4.setNormal(0.0F, -1.0F, 0.0F);
+@@ -3233,7 +3233,7 @@
+ 				this.renderSouthFace(var1, 0.0D, 0.0D, 0.0D, var1.getBlockTextureFromSide(5));
+ 				var4.setTranslationF(var6, 0.0F, 0.0F);
+ 				var4.draw();
+-				GL11.glTranslatef(0.5F, 0.5F, 0.5F);
++				GL11.glTranslated(0.5F, 0.5F, 0.5F);
+ 			} else if(var5 == 6) {
+ 				var4.startDrawingQuads();
+ 				var4.setNormal(0.0F, -1.0F, 0.0F);
+@@ -3256,7 +3256,7 @@
+ 							var1.setBlockBounds(0.0F, 0.0F, 0.5F, 1.0F, 0.5F, 1.0F);
+ 						}
+ 
+-						GL11.glTranslatef(-0.5F, -0.5F, -0.5F);
++						GL11.glTranslated(-0.5F, -0.5F, -0.5F);
+ 						var4.startDrawingQuads();
+ 						var4.setNormal(0.0F, -1.0F, 0.0F);
+ 						this.renderBottomFace(var1, 0.0D, 0.0D, 0.0D, var1.getBlockTextureFromSide(0));
+@@ -3281,7 +3281,7 @@
+ 						var4.setNormal(1.0F, 0.0F, 0.0F);
+ 						this.renderSouthFace(var1, 0.0D, 0.0D, 0.0D, var1.getBlockTextureFromSide(5));
+ 						var4.draw();
+-						GL11.glTranslatef(0.5F, 0.5F, 0.5F);
++						GL11.glTranslated(0.5F, 0.5F, 0.5F);
+ 					}
+ 				} else if(var5 == 11) {
+ 					for(var9 = 0; var9 < 4; ++var9) {
+@@ -3303,7 +3303,7 @@
+ 							var1.setBlockBounds(0.5F - var7, 0.5F - var7 * 3.0F, -var7 * 2.0F, 0.5F + var7, 0.5F - var7, 1.0F + var7 * 2.0F);
+ 						}
+ 
+-						GL11.glTranslatef(-0.5F, -0.5F, -0.5F);
++						GL11.glTranslated(-0.5F, -0.5F, -0.5F);
+ 						var4.startDrawingQuads();
+ 						var4.setNormal(0.0F, -1.0F, 0.0F);
+ 						this.renderBottomFace(var1, 0.0D, 0.0D, 0.0D, var1.getBlockTextureFromSide(0));
+@@ -3328,7 +3328,7 @@
+ 						var4.setNormal(1.0F, 0.0F, 0.0F);
+ 						this.renderSouthFace(var1, 0.0D, 0.0D, 0.0D, var1.getBlockTextureFromSide(5));
+ 						var4.draw();
+-						GL11.glTranslatef(0.5F, 0.5F, 0.5F);
++						GL11.glTranslated(0.5F, 0.5F, 0.5F);
+ 					}
+ 
+ 					var1.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
+@@ -3340,7 +3340,7 @@
+ 			}
+ 
+ 			var1.setBlockBoundsForItemRender();
+-			GL11.glTranslatef(-0.5F, -0.5F, -0.5F);
++			GL11.glTranslated(-0.5F, -0.5F, -0.5F);
+ 			var4.startDrawingQuads();
+ 			var4.setNormal(0.0F, -1.0F, 0.0F);
+ 			this.renderBottomFace(var1, 0.0D, 0.0D, 0.0D, var1.getBlockTextureFromSideAndMetadata(0, var2));
+@@ -3365,7 +3365,7 @@
+ 			var4.setNormal(1.0F, 0.0F, 0.0F);
+ 			this.renderSouthFace(var1, 0.0D, 0.0D, 0.0D, var1.getBlockTextureFromSideAndMetadata(5, var2));
+ 			var4.draw();
+-			GL11.glTranslatef(0.5F, 0.5F, 0.5F);
++			GL11.glTranslated(0.5F, 0.5F, 0.5F);
+ 		}
+ 
+ 	}
+--- net/minecraft/src/World.java
++++ net/minecraft/src/World.java
+@@ -309,7 +309,7 @@
+ 	}
+ 
+ 	public int getBlockId(int var1, int var2, int var3) {
+-		return var1 >= -32000000 && var3 >= -32000000 && var1 < 32000000 && var3 <= 32000000 ? (var2 < 0 ? 0 : (var2 >= 128 ? 0 : this.getChunkFromChunkCoords(var1 >> 4, var3 >> 4).getBlockID(var1 & 15, var2, var3 & 15))) : 0;
++		return var1 >= -2147483647 && var3 >= -2147483647 && var1 < 2147483647 && var3 <= 2147483647 ? (var2 < 0 ? 0 : (var2 >= 128 ? 0 : this.getChunkFromChunkCoords(var1 >> 4, var3 >> 4).getBlockID(var1 & 15, var2, var3 & 15))) : 0;
+ 	}
+ 
+ 	public boolean isAirBlock(int var1, int var2, int var3) {
+@@ -360,7 +360,7 @@
+ 	}
+ 
+ 	public boolean setBlockAndMetadata(int var1, int var2, int var3, int var4, int var5) {
+-		if(var1 >= -32000000 && var3 >= -32000000 && var1 < 32000000 && var3 <= 32000000) {
++		if(var1 >= -2147483647 && var3 >= -2147483647 && var1 < 2147483647 && var3 <= 2147483647) {
+ 			if(var2 < 0) {
+ 				return false;
+ 			} else if(var2 >= 128) {
+@@ -375,7 +375,7 @@
+ 	}
+ 
+ 	public boolean setBlock(int var1, int var2, int var3, int var4) {
+-		if(var1 >= -32000000 && var3 >= -32000000 && var1 < 32000000 && var3 <= 32000000) {
++		if(var1 >= -2147483647 && var3 >= -2147483647 && var1 < 2147483647 && var3 <= 2147483647) {
+ 			if(var2 < 0) {
+ 				return false;
+ 			} else if(var2 >= 128) {
+@@ -395,7 +395,7 @@
+ 	}
+ 
+ 	public int getBlockMetadata(int var1, int var2, int var3) {
+-		if(var1 >= -32000000 && var3 >= -32000000 && var1 < 32000000 && var3 <= 32000000) {
++		if(var1 >= -2147483647 && var3 >= -2147483647 && var1 < 2147483647 && var3 <= 2147483647) {
+ 			if(var2 < 0) {
+ 				return 0;
+ 			} else if(var2 >= 128) {
+@@ -424,7 +424,7 @@
+ 	}
+ 
+ 	public boolean setBlockMetadata(int var1, int var2, int var3, int var4) {
+-		if(var1 >= -32000000 && var3 >= -32000000 && var1 < 32000000 && var3 <= 32000000) {
++		if(var1 >= -2147483647 && var3 >= -2147483647 && var1 < 2147483647 && var3 <= 2147483647) {
+ 			if(var2 < 0) {
+ 				return false;
+ 			} else if(var2 >= 128) {
+@@ -535,7 +535,7 @@
+ 	}
+ 
+ 	public int getBlockLightValue_do(int var1, int var2, int var3, boolean var4) {
+-		if(var1 >= -32000000 && var3 >= -32000000 && var1 < 32000000 && var3 <= 32000000) {
++		if(var1 >= -2147483647 && var3 >= -2147483647 && var1 < 2147483647 && var3 <= 2147483647) {
+ 			if(var4) {
+ 				int var5 = this.getBlockId(var1, var2, var3);
+ 				if(var5 == Block.stairSingle.blockID || var5 == Block.tilledField.blockID || var5 == Block.stairCompactCobblestone.blockID || var5 == Block.stairCompactPlanks.blockID) {
+@@ -582,7 +582,7 @@
+ 	}
+ 
+ 	public boolean canExistingBlockSeeTheSky(int var1, int var2, int var3) {
+-		if(var1 >= -32000000 && var3 >= -32000000 && var1 < 32000000 && var3 <= 32000000) {
++		if(var1 >= -2147483647 && var3 >= -2147483647 && var1 < 2147483647 && var3 <= 2147483647) {
+ 			if(var2 < 0) {
+ 				return false;
+ 			} else if(var2 >= 128) {
+@@ -601,7 +601,7 @@
+ 	}
+ 
+ 	public int getHeightValue(int var1, int var2) {
+-		if(var1 >= -32000000 && var2 >= -32000000 && var1 < 32000000 && var2 <= 32000000) {
++		if(var1 >= -2147483647 && var2 >= -2147483647 && var1 < 2147483647 && var2 <= 2147483647) {
+ 			if(!this.chunkExists(var1 >> 4, var2 >> 4)) {
+ 				return 0;
+ 			} else {
+@@ -644,7 +644,7 @@
+ 			var3 = 127;
+ 		}
+ 
+-		if(var3 >= 0 && var3 < 128 && var2 >= -32000000 && var4 >= -32000000 && var2 < 32000000 && var4 <= 32000000) {
++		if(var3 >= 0 && var3 < 128 && var2 >= -2147483647 && var4 >= -2147483647 && var2 < 2147483647 && var4 <= 2147483647) {
+ 			int var5 = var2 >> 4;
+ 			int var6 = var4 >> 4;
+ 			if(!this.chunkExists(var5, var6)) {
+@@ -659,7 +659,7 @@
+ 	}
+ 
+ 	public void setLightValue(EnumSkyBlock var1, int var2, int var3, int var4, int var5) {
+-		if(var2 >= -32000000 && var4 >= -32000000 && var2 < 32000000 && var4 <= 32000000) {
++		if(var2 >= -2147483647 && var4 >= -2147483647 && var2 < 2147483647 && var4 <= 2147483647) {
+ 			if(var3 >= 0) {
+ 				if(var3 < 128) {
+ 					if(this.chunkExists(var2 >> 4, var4 >> 4)) {
+@@ -1680,17 +1680,17 @@
+ 			++lightingUpdatesScheduled;
+ 
+ 			try {
+-				if(lightingUpdatesScheduled == 50) {
+-					return;
+-				}
+-
+-				int var9 = (var5 + var2) / 2;
+-				int var10 = (var7 + var4) / 2;
+-				if(!this.blockExists(var9, 64, var10)) {
+-					return;
+-				}
+-
+-				if(!this.getChunkFromBlockCoords(var9, var10).func_21167_h()) {
++				if(lightingUpdatesScheduled != 50) {
++					int var9 = (var5 + var2) / 2;
++					int var10 = (var7 + var4) / 2;
++					if(!this.blockExists(var9, 64, var10)) {
++						return;
++					}
++
++					if(this.getChunkFromBlockCoords(var9, var10).func_21167_h()) {
++						return;
++					}
++
+ 					int var11 = this.lightingToUpdate.size();
+ 					int var12;
+ 					if(var8) {
+--- net/minecraft/src/RenderArrow.java
++++ net/minecraft/src/RenderArrow.java
+@@ -8,7 +8,7 @@
+ 		if(var1.prevRotationYaw != 0.0F || var1.prevRotationPitch != 0.0F) {
+ 			this.loadTexture("/item/arrows.png");
+ 			GL11.glPushMatrix();
+-			GL11.glTranslatef((float)var2, (float)var4, (float)var6);
++			GL11.glTranslated((float)var2, (float)var4, (float)var6);
+ 			GL11.glRotatef(var1.prevRotationYaw + (var1.rotationYaw - var1.prevRotationYaw) * var9 - 90.0F, 0.0F, 1.0F, 0.0F);
+ 			GL11.glRotatef(var1.prevRotationPitch + (var1.rotationPitch - var1.prevRotationPitch) * var9, 0.0F, 0.0F, 1.0F);
+ 			Tessellator var10 = Tessellator.instance;
+@@ -31,7 +31,7 @@
+ 
+ 			GL11.glRotatef(45.0F, 1.0F, 0.0F, 0.0F);
+ 			GL11.glScalef(var20, var20, var20);
+-			GL11.glTranslatef(-4.0F, 0.0F, 0.0F);
++			GL11.glTranslated(-4.0F, 0.0F, 0.0F);
+ 			GL11.glNormal3f(var20, 0.0F, 0.0F);
+ 			var10.startDrawingQuads();
+ 			var10.addVertexWithUV(-7.0D, -2.0D, -2.0D, (double)var16, (double)var18);
+--- net/minecraft/src/RenderSnowball.java
++++ net/minecraft/src/RenderSnowball.java
+@@ -12,7 +12,7 @@
+ 
+ 	public void doRender(Entity var1, double var2, double var4, double var6, float var8, float var9) {
+ 		GL11.glPushMatrix();
+-		GL11.glTranslatef((float)var2, (float)var4, (float)var6);
++		GL11.glTranslated((float)var2, (float)var4, (float)var6);
+ 		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
+ 		GL11.glScalef(0.5F, 0.5F, 0.5F);
+ 		this.loadTexture("/gui/items.png");
+--- net/minecraft/src/RenderBoat.java
++++ net/minecraft/src/RenderBoat.java
+@@ -12,7 +12,7 @@
+ 
+ 	public void func_157_a(EntityBoat var1, double var2, double var4, double var6, float var8, float var9) {
+ 		GL11.glPushMatrix();
+-		GL11.glTranslatef((float)var2, (float)var4, (float)var6);
++		GL11.glTranslated((float)var2, (float)var4, (float)var6);
+ 		GL11.glRotatef(180.0F - var8, 0.0F, 1.0F, 0.0F);
+ 		float var10 = (float)var1.boatTimeSinceHit - var9;
+ 		float var11 = (float)var1.boatCurrentDamage - var9;
+--- net/minecraft/src/EntityRenderer.java
++++ net/minecraft/src/EntityRenderer.java
+@@ -175,7 +175,7 @@
+ 			float var4 = -(var2.distanceWalkedModified + var3 * var1);
+ 			float var5 = var2.field_775_e + (var2.field_774_f - var2.field_775_e) * var1;
+ 			float var6 = var2.cameraPitch + (var2.field_9328_R - var2.cameraPitch) * var1;
+-			GL11.glTranslatef(MathHelper.sin(var4 * (float)Math.PI) * var5 * 0.5F, -Math.abs(MathHelper.cos(var4 * (float)Math.PI) * var5), 0.0F);
++			GL11.glTranslated(MathHelper.sin(var4 * (float)Math.PI) * var5 * 0.5F, -Math.abs(MathHelper.cos(var4 * (float)Math.PI) * var5), 0.0F);
+ 			GL11.glRotatef(MathHelper.sin(var4 * (float)Math.PI) * var5 * 3.0F, 0.0F, 0.0F, 1.0F);
+ 			GL11.glRotatef(Math.abs(MathHelper.cos(var4 * (float)Math.PI - 0.2F) * var5) * 5.0F, 1.0F, 0.0F, 0.0F);
+ 			GL11.glRotatef(var6, 1.0F, 0.0F, 0.0F);
+@@ -191,7 +191,7 @@
+ 		GL11.glRotatef(this.field_22230_A + (this.field_22220_z - this.field_22230_A) * var1, 0.0F, 0.0F, 1.0F);
+ 		if(var2.isPlayerSleeping()) {
+ 			var3 = (float)((double)var3 + 1.0D);
+-			GL11.glTranslatef(0.0F, 0.3F, 0.0F);
++			GL11.glTranslated(0.0F, 0.3F, 0.0F);
+ 			if(!this.mc.gameSettings.field_22273_E) {
+ 				int var10 = this.mc.theWorld.getBlockId(MathHelper.floor_double(var2.posX), MathHelper.floor_double(var2.posY), MathHelper.floor_double(var2.posZ));
+ 				if(var10 == Block.blockBed.blockID) {
+@@ -210,7 +210,7 @@
+ 			if(this.mc.gameSettings.field_22273_E) {
+ 				var28 = this.field_22225_u + (this.field_22226_t - this.field_22225_u) * var1;
+ 				var13 = this.field_22223_w + (this.field_22224_v - this.field_22223_w) * var1;
+-				GL11.glTranslatef(0.0F, 0.0F, (float)(-var27));
++				GL11.glTranslated(0.0F, 0.0F, (float)(-var27));
+ 				GL11.glRotatef(var13, 1.0F, 0.0F, 0.0F);
+ 				GL11.glRotatef(var28, 0.0F, 1.0F, 0.0F);
+ 			} else {
+@@ -238,12 +238,12 @@
+ 
+ 				GL11.glRotatef(var2.rotationPitch - var13, 1.0F, 0.0F, 0.0F);
+ 				GL11.glRotatef(var2.rotationYaw - var28, 0.0F, 1.0F, 0.0F);
+-				GL11.glTranslatef(0.0F, 0.0F, (float)(-var27));
++				GL11.glTranslated(0.0F, 0.0F, (float)(-var27));
+ 				GL11.glRotatef(var28 - var2.rotationYaw, 0.0F, 1.0F, 0.0F);
+ 				GL11.glRotatef(var13 - var2.rotationPitch, 1.0F, 0.0F, 0.0F);
+ 			}
+ 		} else {
+-			GL11.glTranslatef(0.0F, 0.0F, -0.1F);
++			GL11.glTranslated(0.0F, 0.0F, -0.1F);
+ 		}
+ 
+ 		if(!this.mc.gameSettings.field_22273_E) {
+@@ -251,7 +251,7 @@
+ 			GL11.glRotatef(var2.prevRotationYaw + (var2.rotationYaw - var2.prevRotationYaw) * var1 + 180.0F, 0.0F, 1.0F, 0.0F);
+ 		}
+ 
+-		GL11.glTranslatef(0.0F, var3, 0.0F);
++		GL11.glTranslated(0.0F, var3, 0.0F);
+ 		var4 = var2.prevPosX + (var2.posX - var2.prevPosX) * (double)var1;
+ 		var6 = var2.prevPosY + (var2.posY - var2.prevPosY) * (double)var1 - (double)var3;
+ 		var8 = var2.prevPosZ + (var2.posZ - var2.prevPosZ) * (double)var1;
+@@ -264,11 +264,11 @@
+ 		GL11.glLoadIdentity();
+ 		float var3 = 0.07F;
+ 		if(this.mc.gameSettings.anaglyph) {
+-			GL11.glTranslatef((float)(-(var2 * 2 - 1)) * var3, 0.0F, 0.0F);
++			GL11.glTranslated((float)(-(var2 * 2 - 1)) * var3, 0.0F, 0.0F);
+ 		}
+ 
+ 		if(this.cameraZoom != 1.0D) {
+-			GL11.glTranslatef((float)this.cameraYaw, (float)(-this.cameraPitch), 0.0F);
++			GL11.glTranslated((float)this.cameraYaw, (float)(-this.cameraPitch), 0.0F);
+ 			GL11.glScaled(this.cameraZoom, this.cameraZoom, 1.0D);
+ 			GLU.gluPerspective(this.getFOVModifier(var1), (float)this.mc.displayWidth / (float)this.mc.displayHeight, 0.05F, this.farPlaneDistance * 2.0F);
+ 		} else {
+@@ -278,7 +278,7 @@
+ 		GL11.glMatrixMode(GL11.GL_MODELVIEW);
+ 		GL11.glLoadIdentity();
+ 		if(this.mc.gameSettings.anaglyph) {
+-			GL11.glTranslatef((float)(var2 * 2 - 1) * 0.1F, 0.0F, 0.0F);
++			GL11.glTranslated((float)(var2 * 2 - 1) * 0.1F, 0.0F, 0.0F);
+ 		}
+ 
+ 		this.hurtCameraEffect(var1);
+@@ -301,7 +301,7 @@
+ 	private void func_4135_b(float var1, int var2) {
+ 		GL11.glLoadIdentity();
+ 		if(this.mc.gameSettings.anaglyph) {
+-			GL11.glTranslatef((float)(var2 * 2 - 1) * 0.1F, 0.0F, 0.0F);
++			GL11.glTranslated((float)(var2 * 2 - 1) * 0.1F, 0.0F, 0.0F);
+ 		}
+ 
+ 		GL11.glPushMatrix();
+@@ -782,7 +782,7 @@
+ 		GL11.glOrtho(0.0D, var1.field_25121_a, var1.field_25120_b, 0.0D, 1000.0D, 3000.0D);
+ 		GL11.glMatrixMode(GL11.GL_MODELVIEW);
+ 		GL11.glLoadIdentity();
+-		GL11.glTranslatef(0.0F, 0.0F, -2000.0F);
++		GL11.glTranslated(0.0F, 0.0F, -2000.0F);
+ 	}
+ 
+ 	private void updateFogColor(float var1) {
+--- net/minecraft/src/GuiInventory.java
++++ net/minecraft/src/GuiInventory.java
+@@ -37,7 +37,7 @@
+ 		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
+ 		GL11.glEnable(GL11.GL_COLOR_MATERIAL);
+ 		GL11.glPushMatrix();
+-		GL11.glTranslatef((float)(var3 + 51), (float)(var4 + 75), 50.0F);
++		GL11.glTranslated((float)(var3 + 51), (float)(var4 + 75), 50.0F);
+ 		float var5 = 30.0F;
+ 		GL11.glScalef(-var5, var5, var5);
+ 		GL11.glRotatef(180.0F, 0.0F, 0.0F, 1.0F);
+@@ -54,7 +54,7 @@
+ 		this.mc.thePlayer.rotationYaw = (float)Math.atan((double)(var9 / 40.0F)) * 40.0F;
+ 		this.mc.thePlayer.rotationPitch = -((float)Math.atan((double)(var10 / 40.0F))) * 20.0F;
+ 		this.mc.thePlayer.entityBrightness = 1.0F;
+-		GL11.glTranslatef(0.0F, this.mc.thePlayer.yOffset, 0.0F);
++		GL11.glTranslated(0.0F, this.mc.thePlayer.yOffset, 0.0F);
+ 		RenderManager.instance.playerViewY = 180.0F;
+ 		RenderManager.instance.renderEntityWithPosYaw(this.mc.thePlayer, 0.0D, 0.0D, 0.0D, 0.0F, 1.0F);
+ 		this.mc.thePlayer.entityBrightness = 0.0F;
+--- net/minecraft/src/GuiMainMenu.java
++++ net/minecraft/src/GuiMainMenu.java
+@@ -111,7 +111,7 @@
+ 		this.drawTexturedModalRect(var6 + 155, var7 + 0, 0, 45, 155, 44);
+ 		var4.setColorOpaque_I(16777215);
+ 		GL11.glPushMatrix();
+-		GL11.glTranslatef((float)(this.width / 2 + 90), 70.0F, 0.0F);
++		GL11.glTranslated((float)(this.width / 2 + 90), 70.0F, 0.0F);
+ 		GL11.glRotatef(-20.0F, 0.0F, 0.0F, 1.0F);
+ 		float var8 = 1.8F - MathHelper.abs(MathHelper.sin((float)(System.currentTimeMillis() % 1000L) / 1000.0F * (float)Math.PI * 2.0F) * 0.1F);
+ 		var8 = var8 * 100.0F / (float)(this.fontRenderer.getStringWidth(this.splashText) + 32);
+--- net/minecraft/src/ChunkCache.java
++++ net/minecraft/src/ChunkCache.java
+@@ -63,7 +63,7 @@
+ 	}
+ 
+ 	public int getLightValueExt(int var1, int var2, int var3, boolean var4) {
+-		if(var1 >= -32000000 && var3 >= -32000000 && var1 < 32000000 && var3 <= 32000000) {
++		if(var1 >= -2147483647 && var3 >= -2147483647 && var1 < 2147483647 && var3 <= 2147483647) {
+ 			int var5;
+ 			int var6;
+ 			if(var4) {
+--- net/minecraft/src/WorldRenderer.java
++++ net/minecraft/src/WorldRenderer.java
+@@ -27,7 +27,7 @@
+ 	public int posXPlus;
+ 	public int posYPlus;
+ 	public int posZPlus;
+-	public float rendererRadius;
++	public double rendererRadius;
+ 	public boolean needsUpdate;
+ 	public AxisAlignedBB rendererBoundingBox;
+ 	public int chunkIndex;
+@@ -43,7 +43,7 @@
+ 		this.worldObj = var1;
+ 		this.tileEntities = var2;
+ 		this.sizeWidth = this.sizeHeight = this.sizeDepth = var6;
+-		this.rendererRadius = MathHelper.sqrt_float((float)(this.sizeWidth * this.sizeWidth + this.sizeHeight * this.sizeHeight + this.sizeDepth * this.sizeDepth)) / 2.0F;
++		this.rendererRadius = MathHelper.sqrt_double((double)(this.sizeWidth * this.sizeWidth + this.sizeHeight * this.sizeHeight + this.sizeDepth * this.sizeDepth)) / 2.0F;
+ 		this.glRenderList = var7;
+ 		this.posX = -999;
+ 		this.setPosition(var3, var4, var5);
+@@ -65,17 +65,17 @@
+ 			this.posXMinus = var1 - this.posXClip;
+ 			this.posYMinus = var2 - this.posYClip;
+ 			this.posZMinus = var3 - this.posZClip;
+-			float var4 = 6.0F;
+-			this.rendererBoundingBox = AxisAlignedBB.getBoundingBox((double)((float)var1 - var4), (double)((float)var2 - var4), (double)((float)var3 - var4), (double)((float)(var1 + this.sizeWidth) + var4), (double)((float)(var2 + this.sizeHeight) + var4), (double)((float)(var3 + this.sizeDepth) + var4));
++			double var4 = 6.0F;
++			this.rendererBoundingBox = AxisAlignedBB.getBoundingBox((double)((double)var1 - var4), (double)((double)var2 - var4), (double)((double)var3 - var4), (double)((double)(var1 + this.sizeWidth) + var4), (double)((double)(var2 + this.sizeHeight) + var4), (double)((double)(var3 + this.sizeDepth) + var4));
+ 			GL11.glNewList(this.glRenderList + 2, GL11.GL_COMPILE);
+-			RenderItem.renderAABB(AxisAlignedBB.getBoundingBoxFromPool((double)((float)this.posXClip - var4), (double)((float)this.posYClip - var4), (double)((float)this.posZClip - var4), (double)((float)(this.posXClip + this.sizeWidth) + var4), (double)((float)(this.posYClip + this.sizeHeight) + var4), (double)((float)(this.posZClip + this.sizeDepth) + var4)));
++			RenderItem.renderAABB(AxisAlignedBB.getBoundingBoxFromPool((double)((double)this.posXClip - var4), (double)((double)this.posYClip - var4), (double)((double)this.posZClip - var4), (double)((double)(this.posXClip + this.sizeWidth) + var4), (double)((double)(this.posYClip + this.sizeHeight) + var4), (double)((double)(this.posZClip + this.sizeDepth) + var4)));
+ 			GL11.glEndList();
+ 			this.markDirty();
+ 		}
+ 	}
+ 
+ 	private void setupGLTranslation() {
+-		GL11.glTranslatef((float)this.posXClip, (float)this.posYClip, (float)this.posZClip);
++		GL11.glTranslated((double)this.posXClip, (double)this.posYClip, (double)this.posZClip);
+ 	}
+ 
+ 	public void updateRenderer() {
+@@ -115,10 +115,10 @@
+ 									GL11.glNewList(this.glRenderList + var11, GL11.GL_COMPILE);
+ 									GL11.glPushMatrix();
+ 									this.setupGLTranslation();
+-									float var19 = 1.000001F;
+-									GL11.glTranslatef((float)(-this.sizeDepth) / 2.0F, (float)(-this.sizeHeight) / 2.0F, (float)(-this.sizeDepth) / 2.0F);
+-									GL11.glScalef(var19, var19, var19);
+-									GL11.glTranslatef((float)this.sizeDepth / 2.0F, (float)this.sizeHeight / 2.0F, (float)this.sizeDepth / 2.0F);
++									double var19 = 1.000001F;
++									GL11.glTranslated((double)(-this.sizeDepth) / 2.0F, (double)(-this.sizeHeight) / 2.0F, (double)(-this.sizeDepth) / 2.0F);
++									GL11.glScaled(var19, var19, var19);
++									GL11.glTranslated((double)this.sizeDepth / 2.0F, (double)this.sizeHeight / 2.0F, (double)this.sizeDepth / 2.0F);
+ 									tessellator.startDrawingQuads();
+ 									tessellator.setTranslationD((double)(-this.posX), (double)(-this.posY), (double)(-this.posZ));
+ 								}
+@@ -171,10 +171,10 @@
+ 		}
+ 	}
+ 
+-	public float distanceToEntitySquared(Entity var1) {
+-		float var2 = (float)(var1.posX - (double)this.posXPlus);
+-		float var3 = (float)(var1.posY - (double)this.posYPlus);
+-		float var4 = (float)(var1.posZ - (double)this.posZPlus);
++	public double distanceToEntitySquared(Entity var1) {
++		double var2 = (double)(var1.posX - (double)this.posXPlus);
++		double var3 = (double)(var1.posY - (double)this.posYPlus);
++		double var4 = (double)(var1.posZ - (double)this.posZPlus);
+ 		return var2 * var2 + var3 * var3 + var4 * var4;
+ 	}
+ 
+--- net/minecraft/src/RenderPlayer.java
++++ net/minecraft/src/RenderPlayer.java
+@@ -67,13 +67,13 @@
+ 				} else {
+ 					FontRenderer var13 = this.getFontRendererFromRenderManager();
+ 					GL11.glPushMatrix();
+-					GL11.glTranslatef((float)var2 + 0.0F, (float)var4 + 2.3F, (float)var6);
++					GL11.glTranslated((float)var2 + 0.0F, (float)var4 + 2.3F, (float)var6);
+ 					GL11.glNormal3f(0.0F, 1.0F, 0.0F);
+ 					GL11.glRotatef(-this.renderManager.playerViewY, 0.0F, 1.0F, 0.0F);
+ 					GL11.glRotatef(this.renderManager.playerViewX, 1.0F, 0.0F, 0.0F);
+ 					GL11.glScalef(-var9, -var9, var9);
+ 					GL11.glDisable(GL11.GL_LIGHTING);
+-					GL11.glTranslatef(0.0F, 0.25F / var9, 0.0F);
++					GL11.glTranslated(0.0F, 0.25F / var9, 0.0F);
+ 					GL11.glDepthMask(false);
+ 					GL11.glEnable(GL11.GL_BLEND);
+ 					GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+@@ -107,7 +107,7 @@
+ 			this.modelBipedMain.bipedHead.postRender(1.0F / 16.0F);
+ 			if(RenderBlocks.renderItemIn3d(Block.blocksList[var3.itemID].getRenderType())) {
+ 				float var4 = 10.0F / 16.0F;
+-				GL11.glTranslatef(0.0F, -0.25F, 0.0F);
++				GL11.glTranslated(0.0F, -0.25F, 0.0F);
+ 				GL11.glRotatef(180.0F, 0.0F, 1.0F, 0.0F);
+ 				GL11.glScalef(var4, -var4, var4);
+ 			}
+@@ -124,8 +124,8 @@
+ 				GL11.glPushMatrix();
+ 				GL11.glRotatef(var5, 0.0F, 1.0F, 0.0F);
+ 				GL11.glRotatef(var6, 1.0F, 0.0F, 0.0F);
+-				GL11.glTranslatef(6.0F / 16.0F * (float)(var19 * 2 - 1), 0.0F, 0.0F);
+-				GL11.glTranslatef(0.0F, -(6.0F / 16.0F), 0.0F);
++				GL11.glTranslated(6.0F / 16.0F * (float)(var19 * 2 - 1), 0.0F, 0.0F);
++				GL11.glTranslated(0.0F, -(6.0F / 16.0F), 0.0F);
+ 				GL11.glRotatef(-var6, 1.0F, 0.0F, 0.0F);
+ 				GL11.glRotatef(-var5, 0.0F, 1.0F, 0.0F);
+ 				float var7 = 4.0F / 3.0F;
+@@ -137,7 +137,7 @@
+ 
+ 		if(this.loadDownloadableImageTexture(var1.playerCloakUrl, (String)null)) {
+ 			GL11.glPushMatrix();
+-			GL11.glTranslatef(0.0F, 0.0F, 2.0F / 16.0F);
++			GL11.glTranslated(0.0F, 0.0F, 2.0F / 16.0F);
+ 			double var20 = var1.field_20066_r + (var1.field_20063_u - var1.field_20066_r) * (double)var2 - (var1.prevPosX + (var1.posX - var1.prevPosX) * (double)var2);
+ 			double var22 = var1.field_20065_s + (var1.field_20062_v - var1.field_20065_s) * (double)var2 - (var1.prevPosY + (var1.posY - var1.prevPosY) * (double)var2);
+ 			double var8 = var1.field_20064_t + (var1.field_20061_w - var1.field_20064_t) * (double)var2 - (var1.prevPosZ + (var1.posZ - var1.prevPosZ) * (double)var2);
+@@ -177,14 +177,14 @@
+ 		if(var21 != null) {
+ 			GL11.glPushMatrix();
+ 			this.modelBipedMain.bipedRightArm.postRender(1.0F / 16.0F);
+-			GL11.glTranslatef(-(1.0F / 16.0F), 7.0F / 16.0F, 1.0F / 16.0F);
++			GL11.glTranslated(-(1.0F / 16.0F), 7.0F / 16.0F, 1.0F / 16.0F);
+ 			if(var1.fishEntity != null) {
+ 				var21 = new ItemStack(Item.stick);
+ 			}
+ 
+ 			if(var21.itemID < 256 && RenderBlocks.renderItemIn3d(Block.blocksList[var21.itemID].getRenderType())) {
+ 				var5 = 0.5F;
+-				GL11.glTranslatef(0.0F, 3.0F / 16.0F, -(5.0F / 16.0F));
++				GL11.glTranslated(0.0F, 3.0F / 16.0F, -(5.0F / 16.0F));
+ 				var5 *= 12.0F / 16.0F;
+ 				GL11.glRotatef(20.0F, 1.0F, 0.0F, 0.0F);
+ 				GL11.glRotatef(45.0F, 0.0F, 1.0F, 0.0F);
+@@ -193,16 +193,16 @@
+ 				var5 = 10.0F / 16.0F;
+ 				if(Item.itemsList[var21.itemID].shouldRotateAroundWhenRendering()) {
+ 					GL11.glRotatef(180.0F, 0.0F, 0.0F, 1.0F);
+-					GL11.glTranslatef(0.0F, -(2.0F / 16.0F), 0.0F);
++					GL11.glTranslated(0.0F, -(2.0F / 16.0F), 0.0F);
+ 				}
+ 
+-				GL11.glTranslatef(0.0F, 3.0F / 16.0F, 0.0F);
++				GL11.glTranslated(0.0F, 3.0F / 16.0F, 0.0F);
+ 				GL11.glScalef(var5, -var5, var5);
+ 				GL11.glRotatef(-100.0F, 1.0F, 0.0F, 0.0F);
+ 				GL11.glRotatef(45.0F, 0.0F, 1.0F, 0.0F);
+ 			} else {
+ 				var5 = 6.0F / 16.0F;
+-				GL11.glTranslatef(0.25F, 3.0F / 16.0F, -(3.0F / 16.0F));
++				GL11.glTranslated(0.25F, 3.0F / 16.0F, -(3.0F / 16.0F));
+ 				GL11.glScalef(var5, var5, var5);
+ 				GL11.glRotatef(60.0F, 0.0F, 0.0F, 1.0F);
+ 				GL11.glRotatef(-90.0F, 1.0F, 0.0F, 0.0F);
+--- net/minecraft/src/GuiIngame.java
++++ net/minecraft/src/GuiIngame.java
+@@ -167,7 +167,7 @@
+ 		if(this.mc.gameSettings.showDebugInfo) {
+ 			GL11.glPushMatrix();
+ 			if(Minecraft.hasPaidCheckTime > 0L) {
+-				GL11.glTranslatef(0.0F, 32.0F, 0.0F);
++				GL11.glTranslated(0.0F, 32.0F, 0.0F);
+ 			}
+ 
+ 			var8.drawStringWithShadow("Minecraft Beta 1.7.3 (" + this.mc.debug + ")", 2, 2, 16777215);
+@@ -199,7 +199,7 @@
+ 
+ 			if(var16 > 0) {
+ 				GL11.glPushMatrix();
+-				GL11.glTranslatef((float)(var6 / 2), (float)(var7 - 48), 0.0F);
++				GL11.glTranslated((float)(var6 / 2), (float)(var7 - 48), 0.0F);
+ 				GL11.glEnable(GL11.GL_BLEND);
+ 				GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+ 				var17 = 16777215;
+@@ -224,7 +224,7 @@
+ 		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+ 		GL11.glDisable(GL11.GL_ALPHA_TEST);
+ 		GL11.glPushMatrix();
+-		GL11.glTranslatef(0.0F, (float)(var7 - 48), 0.0F);
++		GL11.glTranslated(0.0F, (float)(var7 - 48), 0.0F);
+ 
+ 		for(var17 = 0; var17 < this.chatMessageList.size() && var17 < var26; ++var17) {
+ 			if(((ChatLine)this.chatMessageList.get(var17)).updateCounter < 200 || var31) {
+@@ -347,9 +347,9 @@
+ 			if(var6 > 0.0F) {
+ 				GL11.glPushMatrix();
+ 				float var7 = 1.0F + var6 / 5.0F;
+-				GL11.glTranslatef((float)(var2 + 8), (float)(var3 + 12), 0.0F);
++				GL11.glTranslated((float)(var2 + 8), (float)(var3 + 12), 0.0F);
+ 				GL11.glScalef(1.0F / var7, (var7 + 1.0F) / 2.0F, 1.0F);
+-				GL11.glTranslatef((float)(-(var2 + 8)), (float)(-(var3 + 12)), 0.0F);
++				GL11.glTranslated((float)(-(var2 + 8)), (float)(-(var3 + 12)), 0.0F);
+ 			}
+ 
+ 			itemRenderer.renderItemIntoGUI(this.mc.fontRenderer, this.mc.renderEngine, var5, var2, var3);
+--- net/minecraft/src/RenderMinecart.java
++++ net/minecraft/src/RenderMinecart.java
+@@ -40,7 +40,7 @@
+ 			}
+ 		}
+ 
+-		GL11.glTranslatef((float)var2, (float)var4, (float)var6);
++		GL11.glTranslated((float)var2, (float)var4, (float)var6);
+ 		GL11.glRotatef(180.0F - var8, 0.0F, 1.0F, 0.0F);
+ 		GL11.glRotatef(-var19, 0.0F, 0.0F, 1.0F);
+ 		float var23 = (float)var1.minecartTimeSinceHit - var9;
+@@ -57,7 +57,7 @@
+ 			this.loadTexture("/terrain.png");
+ 			float var25 = 12.0F / 16.0F;
+ 			GL11.glScalef(var25, var25, var25);
+-			GL11.glTranslatef(0.0F, 5.0F / 16.0F, 0.0F);
++			GL11.glTranslated(0.0F, 5.0F / 16.0F, 0.0F);
+ 			GL11.glRotatef(90.0F, 0.0F, 1.0F, 0.0F);
+ 			if(var1.minecartType == 1) {
+ 				(new RenderBlocks()).renderBlockOnInventory(Block.chest, 0, var1.getEntityBrightness(var9));
+@@ -66,7 +66,7 @@
+ 			}
+ 
+ 			GL11.glRotatef(-90.0F, 0.0F, 1.0F, 0.0F);
+-			GL11.glTranslatef(0.0F, -(5.0F / 16.0F), 0.0F);
++			GL11.glTranslated(0.0F, -(5.0F / 16.0F), 0.0F);
+ 			GL11.glScalef(1.0F / var25, 1.0F / var25, 1.0F / var25);
+ 		}
+ 
+--- net/minecraft/src/TileEntitySignRenderer.java
++++ net/minecraft/src/TileEntitySignRenderer.java
+@@ -11,7 +11,7 @@
+ 		float var10 = 2.0F / 3.0F;
+ 		float var12;
+ 		if(var9 == Block.signPost) {
+-			GL11.glTranslatef((float)var2 + 0.5F, (float)var4 + 12.0F / 16.0F * var10, (float)var6 + 0.5F);
++			GL11.glTranslated((float)var2 + 0.5F, (float)var4 + 12.0F / 16.0F * var10, (float)var6 + 0.5F);
+ 			float var11 = (float)(var1.getBlockMetadata() * 360) / 16.0F;
+ 			GL11.glRotatef(-var11, 0.0F, 1.0F, 0.0F);
+ 			this.signModel.signStick.showModel = true;
+@@ -30,9 +30,9 @@
+ 				var12 = -90.0F;
+ 			}
+ 
+-			GL11.glTranslatef((float)var2 + 0.5F, (float)var4 + 12.0F / 16.0F * var10, (float)var6 + 0.5F);
++			GL11.glTranslated((float)var2 + 0.5F, (float)var4 + 12.0F / 16.0F * var10, (float)var6 + 0.5F);
+ 			GL11.glRotatef(-var12, 0.0F, 1.0F, 0.0F);
+-			GL11.glTranslatef(0.0F, -(5.0F / 16.0F), -(7.0F / 16.0F));
++			GL11.glTranslated(0.0F, -(5.0F / 16.0F), -(7.0F / 16.0F));
+ 			this.signModel.signStick.showModel = false;
+ 		}
+ 
+@@ -43,7 +43,7 @@
+ 		GL11.glPopMatrix();
+ 		FontRenderer var17 = this.getFontRenderer();
+ 		var12 = (float)(1.0D / 60.0D) * var10;
+-		GL11.glTranslatef(0.0F, 0.5F * var10, 0.07F * var10);
++		GL11.glTranslated(0.0F, 0.5F * var10, 0.07F * var10);
+ 		GL11.glScalef(var12, -var12, var12);
+ 		GL11.glNormal3f(0.0F, 0.0F, -1.0F * var12);
+ 		GL11.glDepthMask(false);
+--- net/minecraft/src/RenderCreeper.java
++++ net/minecraft/src/RenderCreeper.java
+@@ -57,7 +57,7 @@
+ 				GL11.glLoadIdentity();
+ 				float var5 = var4 * 0.01F;
+ 				float var6 = var4 * 0.01F;
+-				GL11.glTranslatef(var5, var6, 0.0F);
++				GL11.glTranslated(var5, var6, 0.0F);
+ 				this.setRenderPassModel(this.field_27008_a);
+ 				GL11.glMatrixMode(GL11.GL_MODELVIEW);
+ 				GL11.glEnable(GL11.GL_BLEND);
+--- net/minecraft/src/GuiContainer.java
++++ net/minecraft/src/GuiContainer.java
+@@ -29,7 +29,7 @@
+ 		RenderHelper.enableStandardItemLighting();
+ 		GL11.glPopMatrix();
+ 		GL11.glPushMatrix();
+-		GL11.glTranslatef((float)var4, (float)var5, 0.0F);
++		GL11.glTranslated((float)var4, (float)var5, 0.0F);
+ 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+ 		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
+ 		Slot var6 = null;
+@@ -53,7 +53,7 @@
+ 
+ 		InventoryPlayer var12 = this.mc.thePlayer.inventory;
+ 		if(var12.getItemStack() != null) {
+-			GL11.glTranslatef(0.0F, 0.0F, 32.0F);
++			GL11.glTranslated(0.0F, 0.0F, 32.0F);
+ 			itemRenderer.renderItemIntoGUI(this.fontRenderer, this.mc.renderEngine, var12.getItemStack(), var1 - var4 - 8, var2 - var5 - 8);
+ 			itemRenderer.renderItemOverlayIntoGUI(this.fontRenderer, this.mc.renderEngine, var12.getItemStack(), var1 - var4 - 8, var2 - var5 - 8);
+ 		}
+--- net/minecraft/src/RenderLiving.java
++++ net/minecraft/src/RenderLiving.java
+@@ -41,7 +41,7 @@
+ 			GL11.glEnable(GL12.GL_RESCALE_NORMAL);
+ 			GL11.glScalef(-1.0F, -1.0F, 1.0F);
+ 			this.preRenderCallback(var1, var9);
+-			GL11.glTranslatef(0.0F, -24.0F * var14 - 0.0078125F, 0.0F);
++			GL11.glTranslated(0.0F, -24.0F * var14 - 0.0078125F, 0.0F);
+ 			float var15 = var1.field_705_Q + (var1.field_704_R - var1.field_705_Q) * var9;
+ 			float var16 = var1.field_703_S - var1.field_704_R * (1.0F - var9);
+ 			if(var15 > 1.0F) {
+@@ -115,7 +115,7 @@
+ 	}
+ 
+ 	protected void func_22012_b(EntityLiving var1, double var2, double var4, double var6) {
+-		GL11.glTranslatef((float)var2, (float)var4, (float)var6);
++		GL11.glTranslated((float)var2, (float)var4, (float)var6);
+ 	}
+ 
+ 	protected void rotateCorpse(EntityLiving var1, float var2, float var3, float var4) {
+@@ -176,7 +176,7 @@
+ 			float var12 = 1.6F;
+ 			float var13 = (float)(1.0D / 60.0D) * var12;
+ 			GL11.glPushMatrix();
+-			GL11.glTranslatef((float)var3 + 0.0F, (float)var5 + 2.3F, (float)var7);
++			GL11.glTranslated((float)var3 + 0.0F, (float)var5 + 2.3F, (float)var7);
+ 			GL11.glNormal3f(0.0F, 1.0F, 0.0F);
+ 			GL11.glRotatef(-this.renderManager.playerViewY, 0.0F, 1.0F, 0.0F);
+ 			GL11.glRotatef(this.renderManager.playerViewX, 1.0F, 0.0F, 0.0F);
+--- net/minecraft/src/RenderFireball.java
++++ net/minecraft/src/RenderFireball.java
+@@ -6,7 +6,7 @@
+ public class RenderFireball extends Render {
+ 	public void func_4012_a(EntityFireball var1, double var2, double var4, double var6, float var8, float var9) {
+ 		GL11.glPushMatrix();
+-		GL11.glTranslatef((float)var2, (float)var4, (float)var6);
++		GL11.glTranslated((float)var2, (float)var4, (float)var6);
+ 		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
+ 		float var10 = 2.0F;
+ 		GL11.glScalef(var10 / 1.0F, var10 / 1.0F, var10 / 1.0F);
+--- net/minecraft/src/GuiAchievement.java
++++ net/minecraft/src/GuiAchievement.java
+@@ -53,7 +53,7 @@
+ 		GL11.glOrtho(0.0D, (double)this.achievementWindowWidth, (double)this.achievementWindowHeight, 0.0D, 1000.0D, 3000.0D);
+ 		GL11.glMatrixMode(GL11.GL_MODELVIEW);
+ 		GL11.glLoadIdentity();
+-		GL11.glTranslatef(0.0F, 0.0F, -2000.0F);
++		GL11.glTranslated(0.0F, 0.0F, -2000.0F);
+ 	}
+ 
+ 	public void updateAchievementWindow() {
+--- net/minecraft/src/RenderGlobal.java
++++ net/minecraft/src/RenderGlobal.java
+@@ -461,7 +461,7 @@
+ 						}
+ 
+ 						if(this.sortedWorldRenderers[var23].isInFrustum && !this.sortedWorldRenderers[var23].isWaitingOnOcclusionQuery) {
+-							float var24 = MathHelper.sqrt_float(this.sortedWorldRenderers[var23].distanceToEntitySquared(var1));
++							double var24 = MathHelper.sqrt_double(this.sortedWorldRenderers[var23].distanceToEntitySquared(var1));
+ 							int var25 = (int)(1.0F + var24 / 128.0F);
+ 							if(this.cloudOffsetX % var25 == var23 % var25) {
+ 								WorldRenderer var26 = this.sortedWorldRenderers[var23];
+@@ -472,7 +472,7 @@
+ 								float var31 = var28 - var21;
+ 								float var32 = var29 - var22;
+ 								if(var30 != 0.0F || var31 != 0.0F || var32 != 0.0F) {
+-									GL11.glTranslatef(var30, var31, var32);
++									GL11.glTranslated(var30, var31, var32);
+ 									var36 += var30;
+ 									var21 += var31;
+ 									var22 += var32;
+@@ -678,7 +678,7 @@
+ 			var9 = 0.0F;
+ 			var10 = 0.0F;
+ 			GL11.glColor4f(1.0F, 1.0F, 1.0F, var7);
+-			GL11.glTranslatef(var8, var9, var10);
++			GL11.glTranslated(var8, var9, var10);
+ 			GL11.glRotatef(0.0F, 0.0F, 0.0F, 1.0F);
+ 			GL11.glRotatef(this.worldObj.getCelestialAngle(var1) * 360.0F, 1.0F, 0.0F, 0.0F);
+ 			var11 = 30.0F;
+--- net/minecraft/src/BlockFluid.java
++++ net/minecraft/src/BlockFluid.java
+@@ -7,7 +7,7 @@
+ 		super(var1, (var2 == Material.lava ? 14 : 12) * 16 + 13, var2);
+ 		float var3 = 0.0F;
+ 		float var4 = 0.0F;
+-		this.setBlockBounds(0.0F + var4, 0.0F + var3, 0.0F + var4, 1.0F + var4, 1.0F + var3, 1.0F + var4);
++		this.setBlockBounds(0.0F + var4, 0.0F + var3, 0.0F + var4, 1.0F + var4, 1.0F+ var3, 1.0F + var4);
+ 		this.setTickOnLoad(true);
+ 	}
+ 
+@@ -15,12 +15,12 @@
+ 		return 16777215;
+ 	}
+ 
+-	public static float getPercentAir(int var0) {
++	public static double getPercentAir(int var0) {
+ 		if(var0 >= 8) {
+ 			var0 = 0;
+ 		}
+ 
+-		float var1 = (float)(var0 + 1) / 9.0F;
++		double var1 = (double)(var0 + 1) / 9.0D;
+ 		return var1;
+ 	}
+ 
+@@ -46,7 +46,7 @@
+ 	}
+ 
+ 	public boolean renderAsNormalBlock() {
+-		return false;
++		return true;
+ 	}
+ 
+ 	public boolean isOpaqueCube() {
+@@ -194,14 +194,14 @@
+ 		if(this.blockMaterial == Material.water && var5.nextInt(64) == 0) {
+ 			int var6 = var1.getBlockMetadata(var2, var3, var4);
+ 			if(var6 > 0 && var6 < 8) {
+-				var1.playSoundEffect((double)((float)var2 + 0.5F), (double)((float)var3 + 0.5F), (double)((float)var4 + 0.5F), "liquid.water", var5.nextFloat() * 0.25F + 12.0F / 16.0F, var5.nextFloat() * 1.0F + 0.5F);
++				var1.playSoundEffect((double)((double)var2 + 0.5D), (double)((double)var3 + 0.5D), (double)((double)var4 + 0.5D), "liquid.water", var5.nextFloat() * 0.25F + 12.0F / 16.0F, var5.nextFloat() * 1.0F + 0.5F);
+ 			}
+ 		}
+ 
+ 		if(this.blockMaterial == Material.lava && var1.getBlockMaterial(var2, var3 + 1, var4) == Material.air && !var1.isBlockOpaqueCube(var2, var3 + 1, var4) && var5.nextInt(100) == 0) {
+-			double var12 = (double)((float)var2 + var5.nextFloat());
++			double var12 = (double)((double)var2 + var5.nextFloat());
+ 			double var8 = (double)var3 + this.maxY;
+-			double var10 = (double)((float)var4 + var5.nextFloat());
++			double var10 = (double)((double)var4 + var5.nextFloat());
+ 			var1.spawnParticle("lava", var12, var8, var10, 0.0D, 0.0D, 0.0D);
+ 		}
+ 
+@@ -268,7 +268,7 @@
+ 	}
+ 
+ 	protected void triggerLavaMixEffects(World var1, int var2, int var3, int var4) {
+-		var1.playSoundEffect((double)((float)var2 + 0.5F), (double)((float)var3 + 0.5F), (double)((float)var4 + 0.5F), "random.fizz", 0.5F, 2.6F + (var1.rand.nextFloat() - var1.rand.nextFloat()) * 0.8F);
++		var1.playSoundEffect((double)((double)var2 + 0.5D), (double)((double)var3 + 0.5D), (double)((double)var4 + 0.5D), "random.fizz", 0.5F, 2.6F + (var1.rand.nextFloat() - var1.rand.nextFloat()) * 0.8F);
+ 
+ 		for(int var5 = 0; var5 < 8; ++var5) {
+ 			var1.spawnParticle("largesmoke", (double)var2 + Math.random(), (double)var3 + 1.2D, (double)var4 + Math.random(), 0.0D, 0.0D, 0.0D);
+--- net/minecraft/src/GuiAchievements.java
++++ net/minecraft/src/GuiAchievements.java
+@@ -152,7 +152,7 @@
+ 		this.zLevel = 0.0F;
+ 		GL11.glDepthFunc(GL11.GL_GEQUAL);
+ 		GL11.glPushMatrix();
+-		GL11.glTranslatef(0.0F, 0.0F, -200.0F);
++		GL11.glTranslated(0.0F, 0.0F, -200.0F);
+ 		GL11.glEnable(GL11.GL_TEXTURE_2D);
+ 		GL11.glDisable(GL11.GL_LIGHTING);
+ 		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
+--- net/minecraft/src/Entity.java
++++ net/minecraft/src/Entity.java
+@@ -551,8 +551,8 @@
+ 		int var6 = MathHelper.floor_double(this.posZ);
+ 		int var7 = this.worldObj.getBlockId(var4, var5, var6);
+ 		if(var7 != 0 && Block.blocksList[var7].blockMaterial == var1) {
+-			float var8 = BlockFluid.getPercentAir(this.worldObj.getBlockMetadata(var4, var5, var6)) - 1.0F / 9.0F;
+-			float var9 = (float)(var5 + 1) - var8;
++			double var8 = BlockFluid.getPercentAir(this.worldObj.getBlockMetadata(var4, var5, var6)) - 1.0F / 9.0F;
++			double var9 = (double)(var5 + 1) - var8;
+ 			return var2 < (double)var9;
+ 		} else {
+ 			return false;
+--- net/minecraft/src/GuiEditSign.java
++++ net/minecraft/src/GuiEditSign.java
+@@ -65,7 +65,7 @@
+ 		this.drawDefaultBackground();
+ 		this.drawCenteredString(this.fontRenderer, this.screenTitle, this.width / 2, 40, 16777215);
+ 		GL11.glPushMatrix();
+-		GL11.glTranslatef((float)(this.width / 2), 0.0F, 50.0F);
++		GL11.glTranslated((float)(this.width / 2), 0.0F, 50.0F);
+ 		float var4 = 93.75F;
+ 		GL11.glScalef(-var4, -var4, -var4);
+ 		GL11.glRotatef(180.0F, 0.0F, 1.0F, 0.0F);
+@@ -73,7 +73,7 @@
+ 		if(var5 == Block.signPost) {
+ 			float var6 = (float)(this.entitySign.getBlockMetadata() * 360) / 16.0F;
+ 			GL11.glRotatef(var6, 0.0F, 1.0F, 0.0F);
+-			GL11.glTranslatef(0.0F, -1.0625F, 0.0F);
++			GL11.glTranslated(0.0F, -1.0625F, 0.0F);
+ 		} else {
+ 			int var8 = this.entitySign.getBlockMetadata();
+ 			float var7 = 0.0F;
+@@ -90,7 +90,7 @@
+ 			}
+ 
+ 			GL11.glRotatef(var7, 0.0F, 1.0F, 0.0F);
+-			GL11.glTranslatef(0.0F, -1.0625F, 0.0F);
++			GL11.glTranslated(0.0F, -1.0625F, 0.0F);
+ 		}
+ 
+ 		if(this.updateCounter / 6 % 2 == 0) {
+--- net/minecraft/src/RenderTNTPrimed.java
++++ net/minecraft/src/RenderTNTPrimed.java
+@@ -11,7 +11,7 @@
+ 
+ 	public void func_153_a(EntityTNTPrimed var1, double var2, double var4, double var6, float var8, float var9) {
+ 		GL11.glPushMatrix();
+-		GL11.glTranslatef((float)var2, (float)var4, (float)var6);
++		GL11.glTranslated((float)var2, (float)var4, (float)var6);
+ 		float var10;
+ 		if((float)var1.fuse - var9 + 1.0F < 10.0F) {
+ 			var10 = 1.0F - ((float)var1.fuse - var9 + 1.0F) / 10.0F;
+--- net/minecraft/src/Render.java
++++ net/minecraft/src/Render.java
+@@ -37,7 +37,7 @@
+ 		float var14 = (float)var11 / 256.0F;
+ 		float var15 = ((float)var11 + 15.99F) / 256.0F;
+ 		GL11.glPushMatrix();
+-		GL11.glTranslatef((float)var2, (float)var4, (float)var6);
++		GL11.glTranslated((float)var2, (float)var4, (float)var6);
+ 		float var16 = var1.width * 1.4F;
+ 		GL11.glScalef(var16, var16, var16);
+ 		this.loadTexture("/terrain.png");
+@@ -47,7 +47,7 @@
+ 		float var20 = var1.height / var16;
+ 		float var21 = (float)(var1.posY - var1.boundingBox.minY);
+ 		GL11.glRotatef(-this.renderManager.playerViewY, 0.0F, 1.0F, 0.0F);
+-		GL11.glTranslatef(0.0F, 0.0F, -0.3F + (float)((int)var20) * 0.02F);
++		GL11.glTranslated(0.0F, 0.0F, -0.3F + (float)((int)var20) * 0.02F);
+ 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+ 		float var22 = 0.0F;
+ 		int var23 = 0;
+--- net/minecraft/src/RenderSquid.java
++++ net/minecraft/src/RenderSquid.java
+@@ -14,11 +14,11 @@
+ 	protected void func_21007_a(EntitySquid var1, float var2, float var3, float var4) {
+ 		float var5 = var1.field_21088_b + (var1.field_21089_a - var1.field_21088_b) * var4;
+ 		float var6 = var1.field_21086_f + (var1.field_21087_c - var1.field_21086_f) * var4;
+-		GL11.glTranslatef(0.0F, 0.5F, 0.0F);
++		GL11.glTranslated(0.0F, 0.5F, 0.0F);
+ 		GL11.glRotatef(180.0F - var3, 0.0F, 1.0F, 0.0F);
+ 		GL11.glRotatef(var5, 1.0F, 0.0F, 0.0F);
+ 		GL11.glRotatef(var6, 0.0F, 1.0F, 0.0F);
+-		GL11.glTranslatef(0.0F, -1.2F, 0.0F);
++		GL11.glTranslated(0.0F, -1.2F, 0.0F);
+ 	}
+ 
+ 	protected void func_21005_a(EntitySquid var1, float var2) {
+--- net/minecraft/src/TileEntityMobSpawnerRenderer.java
++++ net/minecraft/src/TileEntityMobSpawnerRenderer.java
+@@ -9,7 +9,7 @@
+ 
+ 	public void renderTileEntityMobSpawner(TileEntityMobSpawner var1, double var2, double var4, double var6, float var8) {
+ 		GL11.glPushMatrix();
+-		GL11.glTranslatef((float)var2 + 0.5F, (float)var4, (float)var6 + 0.5F);
++		GL11.glTranslated((float)var2 + 0.5F, (float)var4, (float)var6 + 0.5F);
+ 		Entity var9 = (Entity)this.entityHashMap.get(var1.getMobID());
+ 		if(var9 == null) {
+ 			var9 = EntityList.createEntityInWorld(var1.getMobID(), (World)null);
+@@ -19,10 +19,10 @@
+ 		if(var9 != null) {
+ 			var9.setWorld(var1.worldObj);
+ 			float var10 = 7.0F / 16.0F;
+-			GL11.glTranslatef(0.0F, 0.4F, 0.0F);
++			GL11.glTranslated(0.0F, 0.4F, 0.0F);
+ 			GL11.glRotatef((float)(var1.yaw2 + (var1.yaw - var1.yaw2) * (double)var8) * 10.0F, 0.0F, 1.0F, 0.0F);
+ 			GL11.glRotatef(-30.0F, 1.0F, 0.0F, 0.0F);
+-			GL11.glTranslatef(0.0F, -0.4F, 0.0F);
++			GL11.glTranslated(0.0F, -0.4F, 0.0F);
+ 			GL11.glScalef(var10, var10, var10);
+ 			var9.setLocationAndAngles(var2, var4, var6, 0.0F, 0.0F);
+ 			RenderManager.instance.renderEntityWithPosYaw(var9, 0.0D, 0.0D, 0.0D, 0.0F, var8);
+--- net/minecraft/src/RenderPainting.java
++++ net/minecraft/src/RenderPainting.java
+@@ -10,7 +10,7 @@
+ 	public void func_158_a(EntityPainting var1, double var2, double var4, double var6, float var8, float var9) {
+ 		this.rand.setSeed(187L);
+ 		GL11.glPushMatrix();
+-		GL11.glTranslatef((float)var2, (float)var4, (float)var6);
++		GL11.glTranslated((float)var2, (float)var4, (float)var6);
+ 		GL11.glRotatef(var8, 0.0F, 1.0F, 0.0F);
+ 		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
+ 		this.loadTexture("/art/kz.png");
+--- net/minecraft/src/FontRenderer.java
++++ net/minecraft/src/FontRenderer.java
+@@ -76,7 +76,7 @@
+ 			var19.addVertexWithUV((double)(0.0F + var20), 0.0D, 0.0D, (double)(((float)var10 + var20) / 128.0F + var21), (double)((float)var11 / 128.0F + var23));
+ 			var19.addVertexWithUV(0.0D, 0.0D, 0.0D, (double)((float)var10 / 128.0F + var21), (double)((float)var11 / 128.0F + var23));
+ 			var19.draw();
+-			GL11.glTranslatef((float)this.charWidth[var9], 0.0F, 0.0F);
++			GL11.glTranslated((float)this.charWidth[var9], 0.0F, 0.0F);
+ 			GL11.glEndList();
+ 		}
+ 
+@@ -142,7 +142,7 @@
+ 			GL11.glColor4f(var10, var7, var8, var9);
+ 			this.buffer.clear();
+ 			GL11.glPushMatrix();
+-			GL11.glTranslatef((float)var2, (float)var3, 0.0F);
++			GL11.glTranslated((float)var2, (float)var3, 0.0F);
+ 
+ 			for(var6 = 0; var6 < var1.length(); ++var6) {
+ 				int var11;
+--- net/minecraft/src/Tessellator.java
++++ net/minecraft/src/Tessellator.java
+@@ -168,7 +168,9 @@
+ 	public void setColorOpaque_F(float var1, float var2, float var3) {
+ 		this.setColorOpaque((int)(var1 * 255.0F), (int)(var2 * 255.0F), (int)(var3 * 255.0F));
+ 	}
+-
++	public void setColorOpaque_D(double var1, double var2, double var3) {
++		this.setColorOpaque((int)(var1 * 255.0D), (int)(var2 * 255.0D), (int)(var3 * 255.0D));
++	}
+ 	public void setColorRGBA_F(float var1, float var2, float var3, float var4) {
+ 		this.setColorRGBA((int)(var1 * 255.0F), (int)(var2 * 255.0F), (int)(var3 * 255.0F), (int)(var4 * 255.0F));
+ 	}
+@@ -300,6 +302,17 @@
+ 		byte var4 = (byte)((int)(var1 * 128.0F));
+ 		byte var5 = (byte)((int)(var2 * 127.0F));
+ 		byte var6 = (byte)((int)(var3 * 127.0F));
++		this.normal = var4 | var5 << 8 | var6 << 16;
++	}
++		public void setNormalD(double var1, double var2, double var3) {
++		if(!this.isDrawing) {
++			System.out.println("But..");
++		}
++
++		this.hasNormals = true;
++		byte var4 = (byte)((int)(var1 * 128.0D));
++		byte var5 = (byte)((int)(var2 * 127.0D));
++		byte var6 = (byte)((int)(var3 * 127.0D));
+ 		this.normal = var4 | var5 << 8 | var6 << 16;
+ 	}
+ 
+--- net/minecraft/src/ItemRenderer.java
++++ net/minecraft/src/ItemRenderer.java
+@@ -40,12 +40,12 @@
+ 			float var10 = 0.0F;
+ 			float var11 = 0.3F;
+ 			GL11.glEnable(GL12.GL_RESCALE_NORMAL);
+-			GL11.glTranslatef(-var10, -var11, 0.0F);
++			GL11.glTranslated(-var10, -var11, 0.0F);
+ 			float var12 = 1.5F;
+ 			GL11.glScalef(var12, var12, var12);
+ 			GL11.glRotatef(50.0F, 0.0F, 1.0F, 0.0F);
+ 			GL11.glRotatef(335.0F, 0.0F, 0.0F, 1.0F);
+-			GL11.glTranslatef(-(15.0F / 16.0F), -(1.0F / 16.0F), 0.0F);
++			GL11.glTranslated(-(15.0F / 16.0F), -(1.0F / 16.0F), 0.0F);
+ 			float var13 = 1.0F / 16.0F;
+ 			var3.startDrawingQuads();
+ 			var3.setNormal(0.0F, 0.0F, 1.0F);
+@@ -158,7 +158,7 @@
+ 			var8 = var3.getSwingProgress(var1);
+ 			var9 = MathHelper.sin(var8 * (float)Math.PI);
+ 			var10 = MathHelper.sin(MathHelper.sqrt_float(var8) * (float)Math.PI);
+-			GL11.glTranslatef(-var10 * 0.4F, MathHelper.sin(MathHelper.sqrt_float(var8) * (float)Math.PI * 2.0F) * 0.2F, -var9 * 0.2F);
++			GL11.glTranslated(-var10 * 0.4F, MathHelper.sin(MathHelper.sqrt_float(var8) * (float)Math.PI * 2.0F) * 0.2F, -var9 * 0.2F);
+ 			var8 = 1.0F - var4 / 45.0F + 0.1F;
+ 			if(var8 < 0.0F) {
+ 				var8 = 0.0F;
+@@ -169,7 +169,7 @@
+ 			}
+ 
+ 			var8 = -MathHelper.cos(var8 * (float)Math.PI) * 0.5F + 0.5F;
+-			GL11.glTranslatef(0.0F, 0.0F * var14 - (1.0F - var2) * 1.2F - var8 * 0.5F + 0.04F, -0.9F * var14);
++			GL11.glTranslated(0.0F, 0.0F * var14 - (1.0F - var2) * 1.2F - var8 * 0.5F + 0.04F, -0.9F * var14);
+ 			GL11.glRotatef(90.0F, 0.0F, 1.0F, 0.0F);
+ 			GL11.glRotatef(var8 * -85.0F, 0.0F, 0.0F, 1.0F);
+ 			GL11.glEnable(GL12.GL_RESCALE_NORMAL);
+@@ -178,7 +178,7 @@
+ 			for(int var17 = 0; var17 < 2; ++var17) {
+ 				int var21 = var17 * 2 - 1;
+ 				GL11.glPushMatrix();
+-				GL11.glTranslatef(-0.0F, -0.6F, 1.1F * (float)var21);
++				GL11.glTranslated(-0.0F, -0.6F, 1.1F * (float)var21);
+ 				GL11.glRotatef((float)(-45 * var21), 1.0F, 0.0F, 0.0F);
+ 				GL11.glRotatef(-90.0F, 0.0F, 0.0F, 1.0F);
+ 				GL11.glRotatef(59.0F, 0.0F, 0.0F, 1.0F);
+@@ -201,7 +201,7 @@
+ 			GL11.glScalef(var9, var9, var9);
+ 			GL11.glRotatef(90.0F, 0.0F, 1.0F, 0.0F);
+ 			GL11.glRotatef(180.0F, 0.0F, 0.0F, 1.0F);
+-			GL11.glTranslatef(-1.0F, -1.0F, 0.0F);
++			GL11.glTranslated(-1.0F, -1.0F, 0.0F);
+ 			var10 = 0.015625F;
+ 			GL11.glScalef(var10, var10, var10);
+ 			this.mc.renderEngine.bindTexture(this.mc.renderEngine.getTexture("/misc/mapbg.png"));
+@@ -223,8 +223,8 @@
+ 			var8 = var3.getSwingProgress(var1);
+ 			var9 = MathHelper.sin(var8 * (float)Math.PI);
+ 			var10 = MathHelper.sin(MathHelper.sqrt_float(var8) * (float)Math.PI);
+-			GL11.glTranslatef(-var10 * 0.4F, MathHelper.sin(MathHelper.sqrt_float(var8) * (float)Math.PI * 2.0F) * 0.2F, -var9 * 0.2F);
+-			GL11.glTranslatef(0.7F * var14, -0.65F * var14 - (1.0F - var2) * 0.6F, -0.9F * var14);
++			GL11.glTranslated(-var10 * 0.4F, MathHelper.sin(MathHelper.sqrt_float(var8) * (float)Math.PI * 2.0F) * 0.2F, -var9 * 0.2F);
++			GL11.glTranslated(0.7F * var14, -0.65F * var14 - (1.0F - var2) * 0.6F, -0.9F * var14);
+ 			GL11.glRotatef(45.0F, 0.0F, 1.0F, 0.0F);
+ 			GL11.glEnable(GL12.GL_RESCALE_NORMAL);
+ 			var8 = var3.getSwingProgress(var1);
+@@ -247,8 +247,8 @@
+ 			var8 = var3.getSwingProgress(var1);
+ 			var9 = MathHelper.sin(var8 * (float)Math.PI);
+ 			var10 = MathHelper.sin(MathHelper.sqrt_float(var8) * (float)Math.PI);
+-			GL11.glTranslatef(-var10 * 0.3F, MathHelper.sin(MathHelper.sqrt_float(var8) * (float)Math.PI * 2.0F) * 0.4F, -var9 * 0.4F);
+-			GL11.glTranslatef(0.8F * var14, -(12.0F / 16.0F) * var14 - (1.0F - var2) * 0.6F, -0.9F * var14);
++			GL11.glTranslated(-var10 * 0.3F, MathHelper.sin(MathHelper.sqrt_float(var8) * (float)Math.PI * 2.0F) * 0.4F, -var9 * 0.4F);
++			GL11.glTranslated(0.8F * var14, -(12.0F / 16.0F) * var14 - (1.0F - var2) * 0.6F, -0.9F * var14);
+ 			GL11.glRotatef(45.0F, 0.0F, 1.0F, 0.0F);
+ 			GL11.glEnable(GL12.GL_RESCALE_NORMAL);
+ 			var8 = var3.getSwingProgress(var1);
+@@ -257,12 +257,12 @@
+ 			GL11.glRotatef(var10 * 70.0F, 0.0F, 1.0F, 0.0F);
+ 			GL11.glRotatef(-var9 * 20.0F, 0.0F, 0.0F, 1.0F);
+ 			GL11.glBindTexture(GL11.GL_TEXTURE_2D, this.mc.renderEngine.getTextureForDownloadableImage(this.mc.thePlayer.skinUrl, this.mc.thePlayer.getEntityTexture()));
+-			GL11.glTranslatef(-1.0F, 3.6F, 3.5F);
++			GL11.glTranslated(-1.0F, 3.6F, 3.5F);
+ 			GL11.glRotatef(120.0F, 0.0F, 0.0F, 1.0F);
+ 			GL11.glRotatef(200.0F, 1.0F, 0.0F, 0.0F);
+ 			GL11.glRotatef(-135.0F, 0.0F, 1.0F, 0.0F);
+ 			GL11.glScalef(1.0F, 1.0F, 1.0F);
+-			GL11.glTranslatef(5.6F, 0.0F, 0.0F);
++			GL11.glTranslated(5.6F, 0.0F, 0.0F);
+ 			Render var15 = RenderManager.instance.getEntityRenderObject(this.mc.thePlayer);
+ 			RenderPlayer var16 = (RenderPlayer)var15;
+ 			var10 = 1.0F;
+@@ -394,7 +394,7 @@
+ 			float var14 = 0.0F - var3 / 2.0F;
+ 			float var15 = var14 + var3;
+ 			float var16 = -0.5F;
+-			GL11.glTranslatef((float)(-(var4 * 2 - 1)) * 0.24F, -0.3F, 0.0F);
++			GL11.glTranslated((float)(-(var4 * 2 - 1)) * 0.24F, -0.3F, 0.0F);
+ 			GL11.glRotatef((float)(var4 * 2 - 1) * 10.0F, 0.0F, 1.0F, 0.0F);
+ 			var2.startDrawingQuads();
+ 			var2.addVertexWithUV((double)var12, (double)var14, (double)var16, (double)var9, (double)var11);
+--- net/minecraft/src/RenderFallingSand.java
++++ net/minecraft/src/RenderFallingSand.java
+@@ -11,7 +11,7 @@
+ 
+ 	public void doRenderFallingSand(EntityFallingSand var1, double var2, double var4, double var6, float var8, float var9) {
+ 		GL11.glPushMatrix();
+-		GL11.glTranslatef((float)var2, (float)var4, (float)var6);
++		GL11.glTranslated((float)var2, (float)var4, (float)var6);
+ 		this.loadTexture("/terrain.png");
+ 		Block var10 = Block.blocksList[var1.blockID];
+ 		World var11 = var1.getWorld();
+--- net/minecraft/src/RenderBiped.java
++++ net/minecraft/src/RenderBiped.java
+@@ -15,24 +15,24 @@
+ 		if(var3 != null) {
+ 			GL11.glPushMatrix();
+ 			this.modelBipedMain.bipedRightArm.postRender(1.0F / 16.0F);
+-			GL11.glTranslatef(-(1.0F / 16.0F), 7.0F / 16.0F, 1.0F / 16.0F);
++			GL11.glTranslated(-(1.0F / 16.0F), 7.0F / 16.0F, 1.0F / 16.0F);
+ 			float var4;
+ 			if(var3.itemID < 256 && RenderBlocks.renderItemIn3d(Block.blocksList[var3.itemID].getRenderType())) {
+ 				var4 = 0.5F;
+-				GL11.glTranslatef(0.0F, 3.0F / 16.0F, -(5.0F / 16.0F));
++				GL11.glTranslated(0.0F, 3.0F / 16.0F, -(5.0F / 16.0F));
+ 				var4 *= 12.0F / 16.0F;
+ 				GL11.glRotatef(20.0F, 1.0F, 0.0F, 0.0F);
+ 				GL11.glRotatef(45.0F, 0.0F, 1.0F, 0.0F);
+ 				GL11.glScalef(var4, -var4, var4);
+ 			} else if(Item.itemsList[var3.itemID].isFull3D()) {
+ 				var4 = 10.0F / 16.0F;
+-				GL11.glTranslatef(0.0F, 3.0F / 16.0F, 0.0F);
++				GL11.glTranslated(0.0F, 3.0F / 16.0F, 0.0F);
+ 				GL11.glScalef(var4, -var4, var4);
+ 				GL11.glRotatef(-100.0F, 1.0F, 0.0F, 0.0F);
+ 				GL11.glRotatef(45.0F, 0.0F, 1.0F, 0.0F);
+ 			} else {
+ 				var4 = 6.0F / 16.0F;
+-				GL11.glTranslatef(0.25F, 3.0F / 16.0F, -(3.0F / 16.0F));
++				GL11.glTranslated(0.25F, 3.0F / 16.0F, -(3.0F / 16.0F));
+ 				GL11.glScalef(var4, var4, var4);
+ 				GL11.glRotatef(60.0F, 0.0F, 0.0F, 1.0F);
+ 				GL11.glRotatef(-90.0F, 1.0F, 0.0F, 0.0F);
+--- net/minecraft/src/LoadingScreenRenderer.java
++++ net/minecraft/src/LoadingScreenRenderer.java
+@@ -39,7 +39,7 @@
+ 			GL11.glOrtho(0.0D, var2.field_25121_a, var2.field_25120_b, 0.0D, 100.0D, 300.0D);
+ 			GL11.glMatrixMode(GL11.GL_MODELVIEW);
+ 			GL11.glLoadIdentity();
+-			GL11.glTranslatef(0.0F, 0.0F, -200.0F);
++			GL11.glTranslated(0.0F, 0.0F, -200.0F);
+ 		}
+ 	}
+ 
+@@ -74,7 +74,7 @@
+ 				GL11.glOrtho(0.0D, var4.field_25121_a, var4.field_25120_b, 0.0D, 100.0D, 300.0D);
+ 				GL11.glMatrixMode(GL11.GL_MODELVIEW);
+ 				GL11.glLoadIdentity();
+-				GL11.glTranslatef(0.0F, 0.0F, -200.0F);
++				GL11.glTranslated(0.0F, 0.0F, -200.0F);
+ 				GL11.glClear(GL11.GL_DEPTH_BUFFER_BIT | GL11.GL_COLOR_BUFFER_BIT);
+ 				Tessellator var7 = Tessellator.instance;
+ 				int var8 = this.mc.renderEngine.getTexture("/gui/background.png");
+--- net/minecraft/src/RenderFish.java
++++ net/minecraft/src/RenderFish.java
+@@ -6,7 +6,7 @@
+ public class RenderFish extends Render {
+ 	public void func_4011_a(EntityFish var1, double var2, double var4, double var6, float var8, float var9) {
+ 		GL11.glPushMatrix();
+-		GL11.glTranslatef((float)var2, (float)var4, (float)var6);
++		GL11.glTranslated((float)var2, (float)var4, (float)var6);
+ 		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
+ 		GL11.glScalef(0.5F, 0.5F, 0.5F);
+ 		byte var10 = 1;
+--- net/minecraft/src/RenderItem.java
++++ net/minecraft/src/RenderItem.java
+@@ -33,7 +33,7 @@
+ 			var13 = 4;
+ 		}
+ 
+-		GL11.glTranslatef((float)var2, (float)var4 + var11, (float)var6);
++		GL11.glTranslated((float)var2, (float)var4 + var11, (float)var6);
+ 		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
+ 		float var16;
+ 		float var17;
+@@ -54,7 +54,7 @@
+ 					var16 = (this.random.nextFloat() * 2.0F - 1.0F) * 0.2F / var28;
+ 					var17 = (this.random.nextFloat() * 2.0F - 1.0F) * 0.2F / var28;
+ 					var18 = (this.random.nextFloat() * 2.0F - 1.0F) * 0.2F / var28;
+-					GL11.glTranslatef(var16, var17, var18);
++					GL11.glTranslated(var16, var17, var18);
+ 				}
+ 
+ 				this.renderBlocks.renderBlockOnInventory(Block.blocksList[var10.itemID], var10.getItemDamage(), var1.getEntityBrightness(var9));
+@@ -96,7 +96,7 @@
+ 					var24 = (this.random.nextFloat() * 2.0F - 1.0F) * 0.3F;
+ 					var25 = (this.random.nextFloat() * 2.0F - 1.0F) * 0.3F;
+ 					var26 = (this.random.nextFloat() * 2.0F - 1.0F) * 0.3F;
+-					GL11.glTranslatef(var24, var25, var26);
++					GL11.glTranslated(var24, var25, var26);
+ 				}
+ 
+ 				GL11.glRotatef(180.0F - this.renderManager.playerViewY, 0.0F, 1.0F, 0.0F);
+@@ -121,9 +121,9 @@
+ 			var2.bindTexture(var2.getTexture("/terrain.png"));
+ 			Block var14 = Block.blocksList[var3];
+ 			GL11.glPushMatrix();
+-			GL11.glTranslatef((float)(var6 - 2), (float)(var7 + 3), -3.0F);
++			GL11.glTranslated((float)(var6 - 2), (float)(var7 + 3), -3.0F);
+ 			GL11.glScalef(10.0F, 10.0F, 10.0F);
+-			GL11.glTranslatef(1.0F, 0.5F, 1.0F);
++			GL11.glTranslated(1.0F, 0.5F, 1.0F);
+ 			GL11.glScalef(1.0F, 1.0F, -1.0F);
+ 			GL11.glRotatef(210.0F, 1.0F, 0.0F, 0.0F);
+ 			GL11.glRotatef(45.0F, 0.0F, 1.0F, 0.0F);
